@@ -3,6 +3,7 @@ import 'package:dine_in/core/utils/k_color_scheme.dart';
 import 'package:dine_in/core/utils/responsive.dart';
 import 'package:dine_in/views/screens/category/category.dart';
 import 'package:dine_in/views/screens/dashboard.dart';
+import 'package:dine_in/views/screens/items/items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconsax/flutter_iconsax.dart';
@@ -31,7 +32,7 @@ class _NavigationState extends State<Navigation> {
       const DashBoardPage(),
       const DashBoardPage(),
       const DashBoardPage(),
-      const DashBoardPage(),
+      const ItemsPage(),
       const CategoryPage(),
       const CategoryPage(),
     ];

@@ -25,3 +25,5 @@ const operatorPath = '/';
 const loginPath = '/loginResturant';
 const categoryPath = '/getAllCategory';
 const updateCategoryStatusPath = '/updateAvailability';
+const updateSubCatStatusPath = '/updateSubAvailability';
+const getAllSubCategoryPath = "/getAllSubCategory";

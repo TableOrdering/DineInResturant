@@ -1,4 +1,4 @@
-import 'package:dine_in/bloc/category/category_bloc.dart';
+import 'package:dine_in/bloc/sub_categories/sub_categories_bloc.dart';
 import 'package:dine_in/core/utils/k_color_scheme.dart';
 import 'package:dine_in/core/utils/responsive.dart';
 import 'package:dine_in/core/utils/toast.dart';
@@ -7,20 +7,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconsax/flutter_iconsax.dart';
 
-class CategoryPage extends StatefulWidget {
-  const CategoryPage({super.key});
+class ItemsPage extends StatefulWidget {
+  const ItemsPage({super.key});
 
   @override
-  State<CategoryPage> createState() => _CategoryPageState();
+  State<ItemsPage> createState() => _ItemsPageState();
 }
 
-class _CategoryPageState extends State<CategoryPage> {
+class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Categories",
+          "Items",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
         ),
         actions: [
@@ -35,7 +35,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 label: const FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    "Add Category",
+                    "Add Items",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -53,7 +53,7 @@ class _CategoryPageState extends State<CategoryPage> {
           SizedBox(
             width: Utils.screenWidth(context),
             height: Utils.screenHeight(context),
-            child: BlocConsumer<CategoryBloc, CategoryState>(
+            child: BlocConsumer<SubCategoriesBloc, SubCategoriesState>(
               listener: (context, state) {
                 if (state.error.isNotEmpty) {
                   showToast(state.error);
@@ -61,15 +61,15 @@ class _CategoryPageState extends State<CategoryPage> {
               },
               builder: (context, state) {
                 final loading = state.isLoading;
-                final categoryData = state.categoriesData;
+                final subCategoryData = state.subCategoryData;
                 return GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     childAspectRatio: 2.5,
                   ),
-                  itemCount: categoryData.length,
+                  itemCount: subCategoryData.length,
                   itemBuilder: (context, index) {
-                    final data = categoryData[index];
+                    final data = subCategoryData[index];
                     if (loading) {
                       return SizedBox(
                         width: Utils.screenWidth(context),
@@ -78,15 +78,15 @@ class _CategoryPageState extends State<CategoryPage> {
                           child: CircularProgressIndicator(),
                         ),
                       );
-                    } else if (state.categoriesData.isEmpty) {
+                    } else if (state.subCategoryData.isEmpty) {
                       return SizedBox(
                         width: Utils.screenWidth(context),
                         height: Utils.screenHeight(context),
                         child: const Center(
-                          child: Text("No Categories Found"),
+                          child: Text("No subCategory Found"),
                         ),
                       );
-                    } else if (state.categoriesData.isNotEmpty) {
+                    } else if (state.subCategoryData.isNotEmpty) {
                       return Card(
                           child: Row(
                         children: [
@@ -97,7 +97,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12),
                               child: CustomeNetworkImage(
-                                data: data.categoryImage ?? '',
+                                data: data.subcategoryImage ?? '',
                               ),
                             ),
                           ),
@@ -107,14 +107,6 @@ class _CategoryPageState extends State<CategoryPage> {
                               const SizedBox(height: 10),
                               Text(
                                 "Name : ${data.name ?? ''}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                "Food Type : ${data.foodType ?? ''}",
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 12,
@@ -184,8 +176,8 @@ class _CategoryPageState extends State<CategoryPage> {
                                   /// Update The Status Of the Category
                                   InkWell(
                                     onTap: () {
-                                      context.read<CategoryBloc>().add(
-                                          CategoryStatus(id: data.id ?? ''));
+                                      context.read<SubCategoriesBloc>().add(
+                                          SubCategoryStatus(id: data.id ?? ''));
                                     },
                                     child: Container(
                                       width: 30,

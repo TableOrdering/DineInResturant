@@ -2,6 +2,7 @@ import 'package:dine_in/core/interceptors/auth_interceptor.dart';
 import 'package:dine_in/core/utils/constants.dart';
 import 'package:dine_in/core/utils/helpers.dart';
 import 'package:dine_in/data/model/category/category.dart';
+import 'package:dine_in/data/model/category/sub_category.dart';
 import 'package:dine_in/data/model/json_response.dart';
 import 'package:dio/dio.dart';
 
@@ -87,6 +88,76 @@ class CategoryService {
     try {
       final response = await dio.put(
         updateCategoryStatusPath,
+        data: {
+          "id": id,
+        },
+      );
+      if (response.statusCode == 200) {
+        return JsonResponse.success(
+          message: 'Status Updated',
+        );
+      } else {
+        return JsonResponse.failure(
+          statusCode: response.statusCode ?? 500,
+          message: 'Failed to Update Status!',
+        );
+      }
+    } on DioException catch (e) {
+      final message = e.message;
+      return JsonResponse.failure(
+        message: message.toString(),
+        statusCode: e.response?.statusCode ?? 500,
+      );
+    } on Exception catch (_) {
+      return JsonResponse.failure(
+        message: 'Something went wrong!',
+      );
+    }
+  }
+
+  Future<JsonResponse> getAllSubCategories(int page, int limit) async {
+    try {
+      final response = await dio.get(
+        getAllSubCategoryPath,
+        queryParameters: {
+          "page": page,
+          "limit": limit,
+        },
+      );
+      if (response.statusCode == 200) {
+        final data = List<SubCategory>.from(
+          response.data?.map(
+                (dynamic item) => SubCategory.fromJson(item),
+              ) ??
+              <SubCategory>[],
+        );
+        return JsonResponse.success(
+          message: 'SubCategory Fetches Successfully',
+          data: <SubCategory>[...data],
+        );
+      } else {
+        return JsonResponse.failure(
+          statusCode: response.statusCode ?? 500,
+          message: 'Failed to Get SubCategory!',
+        );
+      }
+    } on DioException catch (e) {
+      final message = e.message;
+      return JsonResponse.failure(
+        message: message.toString(),
+        statusCode: e.response?.statusCode ?? 500,
+      );
+    } on Exception catch (_) {
+      return JsonResponse.failure(
+        message: 'Something went wrong!',
+      );
+    }
+  }
+
+  Future<JsonResponse> updateSubCategoryStatus(String id) async {
+    try {
+      final response = await dio.put(
+        updateSubCatStatusPath,
         data: {
           "id": id,
         },
