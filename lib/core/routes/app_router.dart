@@ -1,7 +1,7 @@
-
 import 'package:dine_in/bloc/auth/authentication_bloc.dart';
 import 'package:dine_in/core/routes/routes.dart';
 import 'package:dine_in/views/screens/auth/auth_page.dart';
+import 'package:dine_in/views/screens/category/create_category.dart';
 import 'package:dine_in/views/widgets/navigation.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,13 +25,14 @@ class AppRouter {
         GoRoute(
           path: kHomeRoute,
           name: kHomeRoute,
-          builder: (context, state) => const Navigation(),
-          routes: const [
-            // GoRoute(
-            //   path: kSettingsRoute,
-            //   name: kSettingsRoute,
-            //   builder: (context, state) => const SettingsPage(),
-            // ),
+          builder: (context, state) => const CreateCategoryPage(),
+          // builder: (context, state) => const Navigation(),
+          routes: [
+            GoRoute(
+              path: kCreateCategoryRoute,
+              name: kCreateCategoryRoute,
+              builder: (context, state) => const CreateCategoryPage(),
+            ),
           ],
         ),
         GoRoute(

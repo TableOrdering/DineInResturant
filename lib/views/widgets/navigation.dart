@@ -1,11 +1,10 @@
-import 'package:dine_in/bloc/sign_in/sign_in_bloc.dart';
 import 'package:dine_in/core/utils/k_color_scheme.dart';
 import 'package:dine_in/core/utils/responsive.dart';
 import 'package:dine_in/views/screens/category/category.dart';
 import 'package:dine_in/views/screens/dashboard.dart';
 import 'package:dine_in/views/screens/items/items.dart';
+import 'package:dine_in/views/screens/profile/profile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconsax/flutter_iconsax.dart';
 
 class Navigation extends StatefulWidget {
@@ -34,7 +33,7 @@ class _NavigationState extends State<Navigation> {
       const DashBoardPage(),
       const ItemsPage(),
       const CategoryPage(),
-      const CategoryPage(),
+      const ProfilePage(),
     ];
 
     super.initState();
@@ -58,21 +57,6 @@ class _NavigationState extends State<Navigation> {
               elevation: 8.0,
               child: NavigationRail(
                 backgroundColor: Colors.white,
-                trailing: InkWell(
-                  onTap: () {
-                    context.read<SignInBloc>().add(const LogOutEvent());
-                  },
-                  child: Row(
-                    children: [
-                      Text(
-                        "Logout",
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      const SizedBox(width: 8),
-                      const Icon(Icons.logout, size: 15),
-                    ],
-                  ),
-                ),
                 leading: Container(
                   alignment: Alignment.center,
                   width: 200,

@@ -2,7 +2,7 @@ import 'package:dine_in/core/env/environment.dart';
 import 'package:flutter/material.dart';
 
 /// core constants
-const kAppName = 'TingTing-Operation';
+const kAppName = 'Dine-In';
 const kUser = 'kUser';
 
 /// theme constants
