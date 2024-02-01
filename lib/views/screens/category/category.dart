@@ -63,7 +63,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 final loading = state.isLoading;
                 final categoryData = state.categoriesData;
                 return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(-
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     childAspectRatio: 2.5,
                   ),
