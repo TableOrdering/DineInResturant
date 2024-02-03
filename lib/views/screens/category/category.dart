@@ -52,7 +52,7 @@ class _CategoryPageState extends State<CategoryPage> {
         children: [
           SizedBox(
             width: Utils.screenWidth(context),
-            height: Utils.screenHeight(context),
+            height: Utils.screenHeight(context)*0.9,
             child: BlocConsumer<CategoryBloc, CategoryState>(
               listener: (context, state) {
                 if (state.error.isNotEmpty) {
@@ -62,31 +62,33 @@ class _CategoryPageState extends State<CategoryPage> {
               builder: (context, state) {
                 final loading = state.isLoading;
                 final categoryData = state.categoriesData;
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 2.5,
-                  ),
-                  itemCount: categoryData.length,
-                  itemBuilder: (context, index) {
-                    final data = categoryData[index];
-                    if (loading) {
-                      return SizedBox(
-                        width: Utils.screenWidth(context),
-                        height: Utils.screenHeight(context),
-                        child: const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                    } else if (state.categoriesData.isEmpty) {
-                      return SizedBox(
-                        width: Utils.screenWidth(context),
-                        height: Utils.screenHeight(context),
-                        child: const Center(
-                          child: Text("No Categories Found"),
-                        ),
-                      );
-                    } else if (state.categoriesData.isNotEmpty) {
+                if (loading) {
+                  return SizedBox(
+                    width: Utils.screenWidth(context),
+                    height: Utils.screenHeight(context),
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                } else if (state.categoriesData.isEmpty) {
+                  return SizedBox(
+                    width: Utils.screenWidth(context),
+                    height: Utils.screenHeight(context),
+                    child: const Center(
+                      child: Text("No Categories Found"),
+                    ),
+                  );
+                } else if (state.categoriesData.isNotEmpty) {
+                  return GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 2.5,
+                    ),
+                    itemCount: categoryData.length,
+                    itemBuilder: (context, index) {
+                      final data = categoryData[index];
+
                       return Card(
                           child: Row(
                         children: [
@@ -207,11 +209,11 @@ class _CategoryPageState extends State<CategoryPage> {
                           )
                         ],
                       ));
-                    }
-                    return const Center(
-                      child: Text("Something Went Wrong "),
-                    );
-                  },
+                    },
+                  );
+                }
+                return const Center(
+                  child: Text("Something Went Wrong "),
                 );
               },
             ),

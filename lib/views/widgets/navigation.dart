@@ -4,6 +4,7 @@ import 'package:dine_in/views/screens/category/category.dart';
 import 'package:dine_in/views/screens/dashboard.dart';
 import 'package:dine_in/views/screens/items/items.dart';
 import 'package:dine_in/views/screens/profile/profile.dart';
+import 'package:dine_in/views/screens/table/tables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconsax/flutter_iconsax.dart';
 
@@ -15,7 +16,7 @@ class Navigation extends StatefulWidget {
 }
 
 class _NavigationState extends State<Navigation> {
-  int _selectedIndex = 4;
+  int _selectedIndex = 2;
   bool _isExtended = true;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -30,7 +31,7 @@ class _NavigationState extends State<Navigation> {
     _isWebPage = [
       const DashBoardPage(),
       const DashBoardPage(),
-      const DashBoardPage(),
+      const TablesPage(),
       const ItemsPage(),
       const CategoryPage(),
       const ProfilePage(),

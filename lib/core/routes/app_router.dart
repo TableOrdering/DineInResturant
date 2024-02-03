@@ -25,8 +25,8 @@ class AppRouter {
         GoRoute(
           path: kHomeRoute,
           name: kHomeRoute,
-          builder: (context, state) => const CreateCategoryPage(),
-          // builder: (context, state) => const Navigation(),
+          // builder: (context, state) => const CreateCategoryPage(),
+          builder: (context, state) => const Navigation(),
           routes: [
             GoRoute(
               path: kCreateCategoryRoute,

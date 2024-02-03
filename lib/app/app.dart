@@ -2,13 +2,16 @@ import 'package:dine_in/bloc/auth/authentication_bloc.dart';
 import 'package:dine_in/bloc/category/category_bloc.dart';
 import 'package:dine_in/bloc/sign_in/sign_in_bloc.dart';
 import 'package:dine_in/bloc/sub_categories/sub_categories_bloc.dart';
+import 'package:dine_in/bloc/tables/tables_bloc.dart';
 import 'package:dine_in/core/routes/app_router.dart';
 import 'package:dine_in/core/utils/constants.dart';
 import 'package:dine_in/core/utils/k_color_scheme.dart';
 import 'package:dine_in/data/repository/auth_repository.dart';
 import 'package:dine_in/data/repository/catrgory_repo/category_repo.dart';
+import 'package:dine_in/data/repository/tablse_repo/table_repo.dart';
 import 'package:dine_in/data/services/auth_service.dart';
 import 'package:dine_in/data/services/category/category_service.dart';
+import 'package:dine_in/data/services/tables/tables_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,6 +50,13 @@ class Application extends StatelessWidget {
                     dio: Dio(),
                   )),
                 )..add(const GetAllSubCategories())),
+        BlocProvider(
+          create: (context) => TablesBloc(
+            repository: TablesRepoImp(
+              service: TablesService(dio: Dio()),
+            ),
+          )..add(const GetAllTables()),
+        ),
       ],
       child: const Middleware(),
     );

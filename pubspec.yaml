@@ -43,11 +43,13 @@ dependencies:
   equatable: ^2.0.5
   cached_network_image: ^3.3.1
   image_picker: ^1.0.7
+  
 
   flutter_iconsax:
     path: packages/flutter_iconsax
   intl: ^0.19.0
   fluttertoast: ^8.2.4
+  flutter_tts: ^3.8.5
 
 
 dev_dependencies:

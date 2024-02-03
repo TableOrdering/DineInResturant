@@ -23,7 +23,16 @@ const operatorPath = '/';
 
 /// login
 const loginPath = '/loginResturant';
+
+/// Tables Page
+const getTablePath = "/getTables";
+const createTablePath = "/createTable";
+const updateTableStatuPath = "/updateTableStatus";
+
+/// Category Page
 const categoryPath = '/getAllCategory';
 const updateCategoryStatusPath = '/updateAvailability';
+
+/// Not CustomizeAble Api
 const updateSubCatStatusPath = '/updateSubAvailability';
 const getAllSubCategoryPath = "/getAllSubCategory";
