@@ -7,6 +7,7 @@ class TableModel {
   final int? capacity;
   final bool? status;
   final String? resturant;
+  final String? qrCodeData;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -17,6 +18,7 @@ class TableModel {
     this.capacity,
     this.status,
     this.resturant,
+    this.qrCodeData,
     this.createdAt,
     this.updatedAt,
   });
@@ -28,6 +30,7 @@ class TableModel {
     int? capacity,
     bool? status,
     String? resturant,
+    String? qrCodeData,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
@@ -38,6 +41,7 @@ class TableModel {
         capacity: capacity ?? this.capacity,
         status: status ?? this.status,
         resturant: resturant ?? this.resturant,
+        qrCodeData: qrCodeData ?? this.qrCodeData,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
@@ -54,6 +58,7 @@ class TableModel {
         capacity: json["capacity"],
         status: json["status"],
         resturant: json["resturant"],
+        qrCodeData: json["qrCodeData"],
         createdAt: json["createdAt"] == null
             ? null
             : DateTime.parse(json["createdAt"]),
@@ -69,6 +74,7 @@ class TableModel {
         "capacity": capacity,
         "status": status,
         "resturant": resturant,
+        "qrCodeData": qrCodeData,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
       };

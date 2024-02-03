@@ -5,6 +5,7 @@ import 'package:dine_in/core/utils/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconsax/flutter_iconsax.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class TablesPage extends StatefulWidget {
   const TablesPage({super.key});
@@ -104,7 +105,7 @@ class TablesPageState extends State<TablesPage> {
                           children: [
                             ListTile(
                                 leading: Text(
-                                  "0${data.capacity ?? 0}",
+                                  "0${data.tableNumber ?? 0}",
                                   style: const TextStyle(
                                       fontSize: 40,
                                       fontWeight: FontWeight.bold,
@@ -154,9 +155,30 @@ class TablesPageState extends State<TablesPage> {
                                     .titleMedium
                                     ?.copyWith(color: CustomColors.offWhite),
                               ),
-                              trailing: const Icon(
-                                Iconsax.scan_barcode5,
-                                color: CustomColors.offWhite,
+                              trailing: InkWell(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text("View QrCode"),
+                                      content: Center(
+                                        child: SizedBox(
+                                          width: 300,
+                                          height: 300,
+                                          child: QrImageView(
+                                            data: data.qrCodeData ?? '',
+                                            version: QrVersions.auto,
+                                            size: 200.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: const Icon(
+                                  Iconsax.scan_barcode5,
+                                  color: CustomColors.offWhite,
+                                ),
                               ),
                             ),
                           ],
