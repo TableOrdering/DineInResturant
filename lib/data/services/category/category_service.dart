@@ -115,10 +115,10 @@ class CategoryService {
     }
   }
 
-  Future<JsonResponse> getAllSubCategories(int page, int limit) async {
+  Future<JsonResponse> getAllItems(int page, int limit) async {
     try {
       final response = await dio.get(
-        getAllSubCategoryPath,
+        getProductPath,
         queryParameters: {
           "page": page,
           "limit": limit,
@@ -154,10 +154,10 @@ class CategoryService {
     }
   }
 
-  Future<JsonResponse> updateSubCategoryStatus(String id) async {
+  Future<JsonResponse> updateProductStatus(String id) async {
     try {
       final response = await dio.put(
-        updateSubCatStatusPath,
+        updateProductPath,
         data: {
           "id": id,
         },
@@ -185,4 +185,34 @@ class CategoryService {
     }
   }
 
+  Future<JsonResponse> deleteProduct(String id) async {
+    try {
+      final response = await dio.delete(
+        deleteProductPath,
+        data: {
+          "id": id,
+        },
+      );
+      if (response.statusCode == 200) {
+        return JsonResponse.success(
+          message: 'Status Updated',
+        );
+      } else {
+        return JsonResponse.failure(
+          statusCode: response.statusCode ?? 500,
+          message: 'Failed to Update Status!',
+        );
+      }
+    } on DioException catch (e) {
+      final message = e.message;
+      return JsonResponse.failure(
+        message: message.toString(),
+        statusCode: e.response?.statusCode ?? 500,
+      );
+    } on Exception catch (_) {
+      return JsonResponse.failure(
+        message: 'Something went wrong!',
+      );
+    }
+  }
 }

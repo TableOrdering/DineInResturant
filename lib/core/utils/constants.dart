@@ -35,6 +35,7 @@ const updateTablePath = "/updateTable";
 const categoryPath = '/getAllCategory';
 const updateCategoryStatusPath = '/updateAvailability';
 
-/// Not CustomizeAble Api
-const updateSubCatStatusPath = '/updateSubAvailability';
-const getAllSubCategoryPath = "/getAllSubCategory";
+/// Products
+const updateProductPath = '/updateProduct';
+const getProductPath = "/getProduct";
+const deleteProductPath = '/deleteProduct';

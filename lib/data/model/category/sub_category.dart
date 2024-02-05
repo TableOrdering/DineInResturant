@@ -5,20 +5,26 @@ import 'package:dine_in/data/model/category/category.dart';
 class SubCategory {
   final String? id;
   final String? name;
-  final String? resturant;
+  final String? description;
+  final int? price;
+  final int? discount;
+  final int? rating;
   final CategoryModel? category;
-  final String? subcategoryImage;
   final bool? isAvailable;
+  final String? productImage;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
   SubCategory({
     this.id,
     this.name,
-    this.resturant,
+    this.description,
+    this.price,
+    this.discount,
+    this.rating,
     this.category,
-    this.subcategoryImage,
     this.isAvailable,
+    this.productImage,
     this.createdAt,
     this.updatedAt,
   });
@@ -26,20 +32,26 @@ class SubCategory {
   SubCategory copyWith({
     String? id,
     String? name,
-    String? resturant,
+    String? description,
+    int? price,
+    int? discount,
+    int? rating,
     CategoryModel? category,
-    String? subcategoryImage,
     bool? isAvailable,
+    String? productImage,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
       SubCategory(
         id: id ?? this.id,
         name: name ?? this.name,
-        resturant: resturant ?? this.resturant,
+        description: description ?? this.description,
+        price: price ?? this.price,
+        discount: discount ?? this.discount,
+        rating: rating ?? this.rating,
         category: category ?? this.category,
-        subcategoryImage: subcategoryImage ?? this.subcategoryImage,
         isAvailable: isAvailable ?? this.isAvailable,
+        productImage: productImage ?? this.productImage,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
@@ -52,12 +64,15 @@ class SubCategory {
   factory SubCategory.fromJson(Map<String, dynamic> json) => SubCategory(
         id: json["_id"],
         name: json["name"],
-        resturant: json["resturant"],
+        description: json["description"],
+        price: json["price"],
+        discount: json["discount"],
+        rating: json["rating"],
         category: json["category"] == null
             ? null
             : CategoryModel.fromJson(json["category"]),
-        subcategoryImage: json["subcategoryImage"],
         isAvailable: json["isAvailable"],
+        productImage: json["productImage"],
         createdAt: json["createdAt"] == null
             ? null
             : DateTime.parse(json["createdAt"]),
@@ -69,10 +84,13 @@ class SubCategory {
   Map<String, dynamic> toJson() => {
         "_id": id,
         "name": name,
-        "resturant": resturant,
+        "description": description,
+        "price": price,
+        "discount": discount,
+        "rating": rating,
         "category": category?.toJson(),
-        "subcategoryImage": subcategoryImage,
         "isAvailable": isAvailable,
+        "productImage": productImage,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
       };

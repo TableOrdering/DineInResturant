@@ -1,4 +1,4 @@
-import 'package:dine_in/bloc/sub_categories/sub_categories_bloc.dart';
+import 'package:dine_in/bloc/items/items_bloc.dart';
 import 'package:dine_in/core/utils/k_color_scheme.dart';
 import 'package:dine_in/core/utils/responsive.dart';
 import 'package:dine_in/core/utils/toast.dart';
@@ -15,6 +15,12 @@ class ItemsPage extends StatefulWidget {
 }
 
 class _ItemsPageState extends State<ItemsPage> {
+  @override
+  void initState() {
+    context.read<ItemsBloc>().add(const GetAllProducts());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,8 +58,8 @@ class _ItemsPageState extends State<ItemsPage> {
         children: [
           SizedBox(
             width: Utils.screenWidth(context),
-            height: Utils.screenHeight(context),
-            child: BlocConsumer<SubCategoriesBloc, SubCategoriesState>(
+            height: Utils.screenHeight(context) * 0.9,
+            child: BlocConsumer<ItemsBloc, ItemsState>(
               listener: (context, state) {
                 if (state.error.isNotEmpty) {
                   showToast(state.error);
@@ -62,42 +68,44 @@ class _ItemsPageState extends State<ItemsPage> {
               builder: (context, state) {
                 final loading = state.isLoading;
                 final subCategoryData = state.subCategoryData;
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 2.5,
-                  ),
-                  itemCount: subCategoryData.length,
-                  itemBuilder: (context, index) {
-                    final data = subCategoryData[index];
-                    if (loading) {
-                      return SizedBox(
-                        width: Utils.screenWidth(context),
-                        height: Utils.screenHeight(context),
-                        child: const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                    } else if (state.subCategoryData.isEmpty) {
-                      return SizedBox(
-                        width: Utils.screenWidth(context),
-                        height: Utils.screenHeight(context),
-                        child: const Center(
-                          child: Text("No subCategory Found"),
-                        ),
-                      );
-                    } else if (state.subCategoryData.isNotEmpty) {
+                if (loading && state.subCategoryData.isEmpty) {
+                  return SizedBox(
+                    width: Utils.screenWidth(context),
+                    height: Utils.screenHeight(context),
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                } else if (!loading && state.subCategoryData.isEmpty) {
+                  return SizedBox(
+                    width: Utils.screenWidth(context),
+                    height: Utils.screenHeight(context),
+                    child: const Center(
+                      child: Text("No subCategory Found"),
+                    ),
+                  );
+                } else if (state.subCategoryData.isNotEmpty) {
+                  return GridView.builder(
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: Utils.screenWidth(context) * 0.31,
+                      mainAxisExtent: 150,
+                      mainAxisSpacing: 8.0,
+                      crossAxisSpacing: 8.0,
+                    ),
+                    itemCount: subCategoryData.length,
+                    itemBuilder: (context, index) {
+                      final data = subCategoryData[index];
                       return Card(
                           child: Row(
                         children: [
                           Container(
                             padding: const EdgeInsets.all(8),
-                            width: Utils.screenWidth(context) * 0.11,
+                            width: Utils.screenWidth(context) * 0.12,
                             height: 200,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12),
                               child: CustomeNetworkImage(
-                                data: data.subcategoryImage ?? '',
+                                data: data.productImage ?? '',
                               ),
                             ),
                           ),
@@ -105,11 +113,16 @@ class _ItemsPageState extends State<ItemsPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(height: 10),
-                              Text(
-                                "Name : ${data.name ?? ''}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
+                              SizedBox(
+                                width: Utils.screenWidth(context) * 0.13,
+                                child: Text(
+                                  "Name : ${data.name ?? ''}",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 8),
@@ -156,7 +169,10 @@ class _ItemsPageState extends State<ItemsPage> {
                                   ),
                                   const SizedBox(width: 8),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      context.read<ItemsBloc>().add(
+                                          DeleteProduct(id: data.id ?? ''));
+                                    },
                                     child: Container(
                                       width: 30,
                                       height: 30,
@@ -176,8 +192,9 @@ class _ItemsPageState extends State<ItemsPage> {
                                   /// Update The Status Of the Category
                                   InkWell(
                                     onTap: () {
-                                      context.read<SubCategoriesBloc>().add(
-                                          SubCategoryStatus(id: data.id ?? ''));
+                                      context.read<ItemsBloc>().add(
+                                          UpdateProductStatus(
+                                              id: data.id ?? ''));
                                     },
                                     child: Container(
                                       width: 30,
@@ -199,11 +216,11 @@ class _ItemsPageState extends State<ItemsPage> {
                           )
                         ],
                       ));
-                    }
-                    return const Center(
-                      child: Text("Something Went Wrong "),
-                    );
-                  },
+                    },
+                  );
+                }
+                return const Center(
+                  child: Text("Something Went Wrong "),
                 );
               },
             ),

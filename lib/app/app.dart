@@ -1,7 +1,7 @@
 import 'package:dine_in/bloc/auth/authentication_bloc.dart';
 import 'package:dine_in/bloc/category/category_bloc.dart';
+import 'package:dine_in/bloc/items/items_bloc.dart';
 import 'package:dine_in/bloc/sign_in/sign_in_bloc.dart';
-import 'package:dine_in/bloc/sub_categories/sub_categories_bloc.dart';
 import 'package:dine_in/bloc/tables/tables_bloc.dart';
 import 'package:dine_in/core/routes/app_router.dart';
 import 'package:dine_in/core/utils/constants.dart';
@@ -43,13 +43,13 @@ class Application extends StatelessWidget {
                     dio: Dio(),
                   )),
                 )..add(const GetAllCategories())),
-        BlocProvider<SubCategoriesBloc>(
-            create: (context) => SubCategoriesBloc(
+        BlocProvider<ItemsBloc>(
+            create: (context) => ItemsBloc(
                   repository: CategoryRepoImp(
                       service: CategoryService(
                     dio: Dio(),
                   )),
-                )..add(const GetAllSubCategories())),
+                )..add(const GetAllProducts())),
         BlocProvider(
           create: (context) => TablesBloc(
             repository: TablesRepoImp(

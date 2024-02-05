@@ -4,8 +4,9 @@ import 'package:dine_in/data/services/category/category_service.dart';
 abstract class CategoryRepository {
   Future<JsonResponse> getAllCategories(int page, int limit);
   Future<JsonResponse> updateCategoryStatus(String id);
-  Future<JsonResponse> updateSubCategoryStatus(String id);
-  Future<JsonResponse> getAllSubCategories(int page, int limit);
+  Future<JsonResponse> updateProductStatus(String id);
+  Future<JsonResponse> getAllItems(int page, int limit);
+  Future<JsonResponse> deleteProduct(String id);
 }
 
 class CategoryRepoImp implements CategoryRepository {
@@ -21,10 +22,13 @@ class CategoryRepoImp implements CategoryRepository {
       service.updateCategoryStatus(id);
 
   @override
-  Future<JsonResponse> getAllSubCategories(int page, int limit) =>
-      service.getAllSubCategories(page, limit);
+  Future<JsonResponse> getAllItems(int page, int limit) =>
+      service.getAllItems(page, limit);
 
   @override
-  Future<JsonResponse> updateSubCategoryStatus(String id) =>
-      service.updateSubCategoryStatus(id);
+  Future<JsonResponse> updateProductStatus(String id) =>
+      service.updateProductStatus(id);
+
+  @override
+  Future<JsonResponse> deleteProduct(String id) => service.deleteProduct(id);
 }
