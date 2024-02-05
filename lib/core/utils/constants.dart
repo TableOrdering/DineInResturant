@@ -28,6 +28,8 @@ const loginPath = '/loginResturant';
 const getTablePath = "/getTables";
 const createTablePath = "/createTable";
 const updateTableStatuPath = "/updateTableStatus";
+const deleteTablePath = "/deleteTable";
+const updateTablePath = "/updateTable";
 
 /// Category Page
 const categoryPath = '/getAllCategory';

@@ -12,6 +12,9 @@ class TablesBloc extends HydratedBloc<TablesEvent, TablesState> {
   TablesBloc({required this.repository}) : super(const TablesState()) {
     on<GetAllTables>(_onGetAllTables);
     on<TableStatus>(_onTableStatus);
+    on<CreateTable>(_onCreateTable);
+    on<UpdateTable>(_onUpdateTable);
+    on<DeleteTable>(_onDeleteTable);
   }
   final TablesRepo repository;
 
@@ -41,6 +44,69 @@ class TablesBloc extends HydratedBloc<TablesEvent, TablesState> {
     emit(state.copyWith(isLoading: true, error: '', message: ''));
     try {
       final response = await repository.updateTableStatus(event.id);
+      if (response.success) {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            message: response.message,
+          ),
+        );
+        add(const GetAllTables());
+      } else {
+        emit(state.copyWith(isLoading: false, error: response.message));
+      }
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, error: e.toString()));
+    }
+  }
+
+  FutureOr<void> _onCreateTable(
+      CreateTable event, Emitter<TablesState> emit) async {
+    emit(state.copyWith(isLoading: true, error: '', message: ''));
+    try {
+      final response = await repository.createTable(event.table);
+      if (response.success) {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            message: response.message,
+          ),
+        );
+        add(const GetAllTables());
+      } else {
+        emit(state.copyWith(isLoading: false, error: response.message));
+      }
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, error: e.toString()));
+    }
+  }
+
+  FutureOr<void> _onUpdateTable(
+      UpdateTable event, Emitter<TablesState> emit) async {
+    emit(state.copyWith(isLoading: true, error: '', message: ''));
+    try {
+      final response = await repository.updateTable(event.table);
+      if (response.success) {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            message: response.message,
+          ),
+        );
+        add(const GetAllTables());
+      } else {
+        emit(state.copyWith(isLoading: false, error: response.message));
+      }
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, error: e.toString()));
+    }
+  }
+
+  FutureOr<void> _onDeleteTable(
+      DeleteTable event, Emitter<TablesState> emit) async {
+    emit(state.copyWith(isLoading: true, error: '', message: ''));
+    try {
+      final response = await repository.deleteTable(event.id);
       if (response.success) {
         emit(
           state.copyWith(

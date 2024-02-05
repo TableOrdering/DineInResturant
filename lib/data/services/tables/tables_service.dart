@@ -109,4 +109,100 @@ class TablesService {
       );
     }
   }
+
+  ///[createTable] is Used to create A Table
+  Future<JsonResponse> createTable(TableModel table) async {
+    try {
+      final response = await dio.post(
+        createTablePath,
+        data: table.toJson(),
+      );
+      if (response.statusCode == 201) {
+        return JsonResponse.success(
+          message: 'Table Created',
+        );
+      } else {
+        final error =
+            response.data?['message']?.toString() ?? 'Something went wrong!';
+        return JsonResponse.failure(
+          statusCode: response.statusCode ?? 500,
+          message: error,
+        );
+      }
+    } on DioException catch (e) {
+      final message = e.response?.data?['message']?.toString() ?? e.message;
+      return JsonResponse.failure(
+        message: message.toString(),
+        statusCode: e.response?.statusCode ?? 500,
+      );
+    } on Exception catch (_) {
+      return JsonResponse.failure(
+        message: 'Something went wrong!',
+      );
+    }
+  }
+
+  ///[updateTable] is Used to update A Table
+  Future<JsonResponse> updateTable(TableModel table) async {
+    try {
+      final response = await dio.put(
+        updateTablePath,
+        data: table.toJson(),
+      );
+      if (response.statusCode == 200) {
+        return JsonResponse.success(
+          message: 'Table Updated',
+        );
+      } else {
+        final error =
+            response.data?['message']?.toString() ?? 'Something went wrong!';
+        return JsonResponse.failure(
+          statusCode: response.statusCode ?? 500,
+          message: error,
+        );
+      }
+    } on DioException catch (e) {
+      final message = e.response?.data?['message']?.toString() ?? e.message;
+      return JsonResponse.failure(
+        message: message.toString(),
+        statusCode: e.response?.statusCode ?? 500,
+      );
+    } on Exception catch (_) {
+      return JsonResponse.failure(
+        message: 'Something went wrong!',
+      );
+    }
+  }
+
+  ///used for deleting a particular Table
+  Future<JsonResponse> deleteTable(String id) async {
+    try {
+      final response = await dio.delete(
+        deleteTablePath,
+        data: {
+          "tableId": id,
+        },
+      );
+      if (response.statusCode == 200) {
+        return JsonResponse.success(
+          message: 'Status Updated',
+        );
+      } else {
+        return JsonResponse.failure(
+          statusCode: response.statusCode ?? 500,
+          message: 'Failed to Update Status!',
+        );
+      }
+    } on DioException catch (e) {
+      final message = e.message;
+      return JsonResponse.failure(
+        message: message.toString(),
+        statusCode: e.response?.statusCode ?? 500,
+      );
+    } on Exception catch (_) {
+      return JsonResponse.failure(
+        message: 'Something went wrong!',
+      );
+    }
+  }
 }

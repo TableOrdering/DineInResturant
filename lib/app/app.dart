@@ -99,6 +99,19 @@ class Middleware extends StatelessWidget {
             ),
           ),
         ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+            style: OutlinedButton.styleFrom(
+          textStyle: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+          ),
+          minimumSize: const Size(double.infinity, 48.0),
+          side: const BorderSide(color: CustomColors.primary),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        )),
         primaryColor: CustomColors.primary,
       ),
     );
