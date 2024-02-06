@@ -1,4 +1,5 @@
 import 'package:dine_in/bloc/category/category_bloc.dart';
+import 'package:dine_in/core/routes/routes.dart';
 import 'package:dine_in/core/utils/k_color_scheme.dart';
 import 'package:dine_in/core/utils/responsive.dart';
 import 'package:dine_in/core/utils/toast.dart';
@@ -6,6 +7,7 @@ import 'package:dine_in/views/widgets/custome_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconsax/flutter_iconsax.dart';
+import 'package:go_router/go_router.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
@@ -31,7 +33,9 @@ class _CategoryPageState extends State<CategoryPage> {
               height: 40,
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(kCreateCategoryRoute);
+                },
                 label: const FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
@@ -52,7 +56,7 @@ class _CategoryPageState extends State<CategoryPage> {
         children: [
           SizedBox(
             width: Utils.screenWidth(context),
-            height: Utils.screenHeight(context)*0.9,
+            height: Utils.screenHeight(context) * 0.9,
             child: BlocConsumer<CategoryBloc, CategoryState>(
               listener: (context, state) {
                 if (state.error.isNotEmpty) {
@@ -89,126 +93,225 @@ class _CategoryPageState extends State<CategoryPage> {
                     itemBuilder: (context, index) {
                       final data = categoryData[index];
 
-                      return Card(
-                          child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            width: Utils.screenWidth(context) * 0.11,
-                            height: 200,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: CustomeNetworkImage(
-                                data: data.categoryImage ?? '',
-                              ),
+                      return GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => StatefulBuilder(
+                              builder: (context, setState) {
+                                return AlertDialog(
+                                  content: SizedBox(
+                                    height: Utils.screenHeight(context) * 0.5,
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            child: SizedBox(
+                                              width: 250,
+                                              height: 200,
+                                              child: CustomeNetworkImage(
+                                                fill: true,
+                                                data: data.categoryImage ?? '',
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            "Name : ${data.name ?? ''}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            "Description : ${data.description ?? ''}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            "Food Type : ${data.foodType ?? ''}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text.rich(
+                                            TextSpan(children: [
+                                              const TextSpan(
+                                                text: "Availability : ",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text:
+                                                    " ${data.isAvailable ?? false ? "Available" : "Not Available"}",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 12,
+                                                  color:
+                                                      data.isAvailable ?? false
+                                                          ? Colors.green
+                                                          : Colors.red,
+                                                ),
+                                              ),
+                                            ]),
+                                          ),
+                                          const SizedBox(height: 8),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          );
+                        },
+                        child: Card(
+                          child: Row(
                             children: [
-                              const SizedBox(height: 10),
-                              Text(
-                                "Name : ${data.name ?? ''}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                width: Utils.screenWidth(context) * 0.11,
+                                height: 200,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: CustomeNetworkImage(
+                                    data: data.categoryImage ?? '',
+                                  ),
                                 ),
                               ),
-                              const SizedBox(height: 8),
-                              Text(
-                                "Food Type : ${data.foodType ?? ''}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text.rich(
-                                TextSpan(children: [
-                                  const TextSpan(
-                                    text: "Availability : ",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        " ${data.isAvailable ?? false ? "Available" : "Not Available"}",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                      color: data.isAvailable ?? false
-                                          ? Colors.green
-                                          : Colors.red,
-                                    ),
-                                  ),
-                                ]),
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  InkWell(
-                                    onTap: () {},
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: CustomColors.primary,
-                                      ),
-                                      child: const Icon(
-                                        Iconsax.edit4,
-                                        color: Colors.white,
-                                        size: 16,
-                                      ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    "Name : ${data.name ?? ''}",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
                                     ),
                                   ),
-                                  const SizedBox(width: 8),
-                                  InkWell(
-                                    onTap: () {},
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: CustomColors.primary,
-                                      ),
-                                      child: const Icon(
-                                        Icons.delete_outline_rounded,
-                                        color: Colors.white,
-                                        size: 16,
-                                      ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    "Food Type : ${data.foodType ?? ''}",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
                                     ),
                                   ),
-                                  const SizedBox(width: 8),
+                                  const SizedBox(height: 8),
+                                  Text.rich(
+                                    TextSpan(children: [
+                                      const TextSpan(
+                                        text: "Availability : ",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            " ${data.isAvailable ?? false ? "Available" : "Not Available"}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12,
+                                          color: data.isAvailable ?? false
+                                              ? Colors.green
+                                              : Colors.red,
+                                        ),
+                                      ),
+                                    ]),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Container(
+                                          width: 30,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: CustomColors.primary,
+                                          ),
+                                          child: const Icon(
+                                            Iconsax.edit4,
+                                            color: Colors.white,
+                                            size: 16,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      InkWell(
+                                        onTap: () {
+                                          context
+                                              .read<CategoryBloc>()
+                                              .add(DeleteCategory(
+                                                id: data.id ?? '',
+                                              ));
+                                        },
+                                        child: Container(
+                                          width: 30,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: CustomColors.primary,
+                                          ),
+                                          child: const Icon(
+                                            Icons.delete_outline_rounded,
+                                            color: Colors.white,
+                                            size: 16,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
 
-                                  /// Update The Status Of the Category
-                                  InkWell(
-                                    onTap: () {
-                                      context.read<CategoryBloc>().add(
-                                          CategoryStatus(id: data.id ?? ''));
-                                    },
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: CustomColors.primary,
+                                      /// Update The Status Of the Category
+                                      InkWell(
+                                        onTap: () {
+                                          context.read<CategoryBloc>().add(
+                                              CategoryStatus(
+                                                  id: data.id ?? ''));
+                                        },
+                                        child: Container(
+                                          width: 30,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: CustomColors.primary,
+                                          ),
+                                          child: const Icon(
+                                            Icons.event_available,
+                                            color: Colors.white,
+                                            size: 16,
+                                          ),
+                                        ),
                                       ),
-                                      child: const Icon(
-                                        Icons.event_available,
-                                        color: Colors.white,
-                                        size: 16,
-                                      ),
-                                    ),
-                                  ),
+                                    ],
+                                  )
                                 ],
                               )
                             ],
-                          )
-                        ],
-                      ));
+                          ),
+                        ),
+                      );
                     },
                   );
                 }

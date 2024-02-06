@@ -33,7 +33,9 @@ const updateTablePath = "/updateTable";
 
 /// Category Page
 const categoryPath = '/getAllCategory';
+const createCategoryPath = '/createCategory';
 const updateCategoryStatusPath = '/updateAvailability';
+const deleteCategoryPath = '/deleteCategory';
 
 /// Products
 const updateProductPath = '/updateProduct';

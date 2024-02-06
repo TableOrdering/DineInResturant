@@ -3,6 +3,7 @@ import 'package:dine_in/core/utils/constants.dart';
 import 'package:dine_in/core/utils/helpers.dart';
 import 'package:dine_in/data/model/category/category.dart';
 import 'package:dine_in/data/model/category/sub_category.dart';
+import 'package:dine_in/data/model/extensions_models/create_category_extension.dart';
 import 'package:dine_in/data/model/json_response.dart';
 import 'package:dio/dio.dart';
 
@@ -104,6 +105,78 @@ class CategoryService {
       }
     } on DioException catch (e) {
       final message = e.message;
+      return JsonResponse.failure(
+        message: message.toString(),
+        statusCode: e.response?.statusCode ?? 500,
+      );
+    } on Exception catch (_) {
+      return JsonResponse.failure(
+        message: 'Something went wrong!',
+      );
+    }
+  }
+
+  Future<JsonResponse> deleteCategory(String id) async {
+    try {
+      final response = await dio.delete(
+        deleteCategoryPath,
+        data: {
+          "id": id,
+        },
+      );
+      if (response.statusCode == 200) {
+        return JsonResponse.success(
+          message: 'Deleted Category',
+        );
+      } else {
+        return JsonResponse.failure(
+          statusCode: response.statusCode ?? 500,
+          message: 'Failed to Delete Category!',
+        );
+      }
+    } on DioException catch (e) {
+      final message = e.message;
+      return JsonResponse.failure(
+        message: message.toString(),
+        statusCode: e.response?.statusCode ?? 500,
+      );
+    } on Exception catch (_) {
+      return JsonResponse.failure(
+        message: 'Something went wrong!',
+      );
+    }
+  }
+
+  Future<JsonResponse> createCategory(CreateCategoryModel model) async {
+    try {
+      FormData formData = FormData.fromMap({
+        'name': model.name,
+        'description': model.description,
+        'foodType': model.foodType,
+        'isAvailable': model.isAvailable,
+        'categoryImage': MultipartFile.fromBytes(
+          model.image,
+          filename: 'categoryImage.jpg',
+        ),
+      });
+      final response = await dio.post(
+        createCategoryPath,
+        data: formData,
+      );
+      if (response.statusCode == 201) {
+        return JsonResponse.success(
+          message: 'Category Created',
+        );
+      } else {
+        final error =
+            response.data?['message']?.toString() ?? 'Something went wrong!';
+        return JsonResponse.failure(
+          statusCode: response.statusCode ?? 500,
+          message: error,
+        );
+      }
+    } on DioException catch (e) {
+      final message = e.response?.data?['message']?.toString() ?? e.message;
       return JsonResponse.failure(
         message: message.toString(),
         statusCode: e.response?.statusCode ?? 500,

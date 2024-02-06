@@ -4,6 +4,7 @@ import 'package:dine_in/data/model/category/resturant.dart';
 class CategoryModel {
   final String? id;
   final String? name;
+  final String? description;
   final Restaurant? restaurant;
   final String? categoryImage;
   final String? foodType;
@@ -14,6 +15,7 @@ class CategoryModel {
   CategoryModel({
     this.id,
     this.name,
+    this.description,
     this.restaurant,
     this.categoryImage,
     this.foodType,
@@ -25,6 +27,7 @@ class CategoryModel {
   CategoryModel copyWith({
     String? id,
     String? name,
+    String? description,
     Restaurant? restaurant,
     String? categoryImage,
     String? foodType,
@@ -35,6 +38,7 @@ class CategoryModel {
       CategoryModel(
         id: id ?? this.id,
         name: name ?? this.name,
+        description: description ?? this.description,
         restaurant: restaurant ?? this.restaurant,
         categoryImage: categoryImage ?? this.categoryImage,
         foodType: foodType ?? this.foodType,
@@ -51,6 +55,7 @@ class CategoryModel {
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
         id: json["_id"],
         name: json["name"],
+        description: json["description"],
         restaurant: json["restaurant"] == null
             ? null
             : Restaurant.fromJson(json["restaurant"]),
@@ -68,6 +73,7 @@ class CategoryModel {
   Map<String, dynamic> toJson() => {
         "_id": id,
         "name": name,
+        "description": description,
         "restaurant": restaurant?.toJson(),
         "categoryImage": categoryImage,
         "foodType": foodType,

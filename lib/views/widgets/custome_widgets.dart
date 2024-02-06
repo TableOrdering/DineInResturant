@@ -7,14 +7,16 @@ class CustomeNetworkImage extends StatelessWidget {
   const CustomeNetworkImage({
     super.key,
     required this.data,
+    this.fill = false,
   });
 
   final String data;
+  final bool fill;
 
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      fit: BoxFit.cover,
+      fit: fill ? BoxFit.fill : BoxFit.cover,
       imageUrl: data,
       placeholder: (context, url) => Container(
         width: Utils.screenWidth(context) * 0.11,
