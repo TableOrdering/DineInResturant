@@ -38,6 +38,7 @@ const updateCategoryStatusPath = '/updateAvailability';
 const deleteCategoryPath = '/deleteCategory';
 
 /// Products
+const createProductPath = "/createProduct";
 const updateProductPath = '/updateProduct';
 const getProductPath = "/getProduct";
 const deleteProductPath = '/deleteProduct';

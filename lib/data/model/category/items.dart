@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dine_in/data/model/category/category.dart';
 
-class SubCategory {
+class ItemsModel {
   final String? id;
   final String? name;
   final String? description;
@@ -15,7 +15,7 @@ class SubCategory {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  SubCategory({
+  ItemsModel({
     this.id,
     this.name,
     this.description,
@@ -29,7 +29,7 @@ class SubCategory {
     this.updatedAt,
   });
 
-  SubCategory copyWith({
+  ItemsModel copyWith({
     String? id,
     String? name,
     String? description,
@@ -42,7 +42,7 @@ class SubCategory {
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
-      SubCategory(
+      ItemsModel(
         id: id ?? this.id,
         name: name ?? this.name,
         description: description ?? this.description,
@@ -56,12 +56,12 @@ class SubCategory {
         updatedAt: updatedAt ?? this.updatedAt,
       );
 
-  factory SubCategory.fromRawJson(String str) =>
-      SubCategory.fromJson(json.decode(str));
+  factory ItemsModel.fromRawJson(String str) =>
+      ItemsModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory SubCategory.fromJson(Map<String, dynamic> json) => SubCategory(
+  factory ItemsModel.fromJson(Map<String, dynamic> json) => ItemsModel(
         id: json["_id"],
         name: json["name"],
         description: json["description"],

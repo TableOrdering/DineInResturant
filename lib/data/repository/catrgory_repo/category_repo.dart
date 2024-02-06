@@ -1,15 +1,19 @@
 import 'package:dine_in/data/model/extensions_models/create_category_extension.dart';
+import 'package:dine_in/data/model/extensions_models/create_product_extension.dart';
 import 'package:dine_in/data/model/json_response.dart';
 import 'package:dine_in/data/services/category/category_service.dart';
 
 abstract class CategoryRepository {
   Future<JsonResponse> getAllCategories(int page, int limit);
   Future<JsonResponse> updateCategoryStatus(String id);
-  Future<JsonResponse> createCategory(CreateCategoryModel model);
-  Future<JsonResponse> updateProductStatus(String id);
-  Future<JsonResponse> getAllItems(int page, int limit);
-  Future<JsonResponse> deleteProduct(String id);
+  Future<JsonResponse> createCategory(CreateCategoryExtension model);
   Future<JsonResponse> deleteCategory(String id);
+
+  /// Product Part
+  Future<JsonResponse> createProduct(CreateItemExtension model);
+  Future<JsonResponse> getAllItems(int page, int limit);
+  Future<JsonResponse> updateProductStatus(String id);
+  Future<JsonResponse> deleteProduct(String id);
 }
 
 class CategoryRepoImp implements CategoryRepository {
@@ -36,9 +40,13 @@ class CategoryRepoImp implements CategoryRepository {
   Future<JsonResponse> deleteProduct(String id) => service.deleteProduct(id);
 
   @override
-  Future<JsonResponse> createCategory(CreateCategoryModel model) =>
+  Future<JsonResponse> createCategory(CreateCategoryExtension model) =>
       service.createCategory(model);
 
   @override
   Future<JsonResponse> deleteCategory(String id) => service.deleteCategory(id);
+
+  @override
+  Future<JsonResponse> createProduct(CreateItemExtension model) =>
+      service.createProduct(model);
 }

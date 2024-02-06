@@ -29,3 +29,11 @@ class DeleteProduct extends ItemsEvent {
   @override
   List<Object> get props => [id];
 }
+
+class CreateProduct extends ItemsEvent {
+  const CreateProduct({required this.model});
+  final CreateItemExtension model;
+
+  @override
+  List<Object> get props => [model];
+}

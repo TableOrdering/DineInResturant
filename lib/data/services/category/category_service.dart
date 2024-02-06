@@ -2,8 +2,9 @@ import 'package:dine_in/core/interceptors/auth_interceptor.dart';
 import 'package:dine_in/core/utils/constants.dart';
 import 'package:dine_in/core/utils/helpers.dart';
 import 'package:dine_in/data/model/category/category.dart';
-import 'package:dine_in/data/model/category/sub_category.dart';
+import 'package:dine_in/data/model/category/items.dart';
 import 'package:dine_in/data/model/extensions_models/create_category_extension.dart';
+import 'package:dine_in/data/model/extensions_models/create_product_extension.dart';
 import 'package:dine_in/data/model/json_response.dart';
 import 'package:dio/dio.dart';
 
@@ -147,7 +148,7 @@ class CategoryService {
     }
   }
 
-  Future<JsonResponse> createCategory(CreateCategoryModel model) async {
+  Future<JsonResponse> createCategory(CreateCategoryExtension model) async {
     try {
       FormData formData = FormData.fromMap({
         'name': model.name,
@@ -188,6 +189,50 @@ class CategoryService {
     }
   }
 
+  /// This Part Starts For CRUD for Product Tab
+  Future<JsonResponse> createProduct(CreateItemExtension model) async {
+    try {
+      FormData formData = FormData.fromMap({
+        'name': model.name,
+        'description': model.description,
+        'price': model.price,
+        'isAvailable': model.isAvailable,
+        'discount': model.discount,
+        'category': model.category,
+        'productImage': MultipartFile.fromBytes(
+          model.productImage!,
+          filename: 'productImage.jpg',
+        ),
+      });
+      final response = await dio.post(
+        createProductPath,
+        data: formData,
+      );
+      if (response.statusCode == 201) {
+        return JsonResponse.success(
+          message: 'Product Created',
+        );
+      } else {
+        final error =
+            response.data?['message']?.toString() ?? 'Something went wrong!';
+        return JsonResponse.failure(
+          statusCode: response.statusCode ?? 500,
+          message: error,
+        );
+      }
+    } on DioException catch (e) {
+      final message = e.response?.data?['message']?.toString() ?? e.message;
+      return JsonResponse.failure(
+        message: message.toString(),
+        statusCode: e.response?.statusCode ?? 500,
+      );
+    } on Exception catch (_) {
+      return JsonResponse.failure(
+        message: 'Something went wrong!',
+      );
+    }
+  }
+
   Future<JsonResponse> getAllItems(int page, int limit) async {
     try {
       final response = await dio.get(
@@ -198,20 +243,20 @@ class CategoryService {
         },
       );
       if (response.statusCode == 200) {
-        final data = List<SubCategory>.from(
+        final data = List<ItemsModel>.from(
           response.data?.map(
-                (dynamic item) => SubCategory.fromJson(item),
+                (dynamic item) => ItemsModel.fromJson(item),
               ) ??
-              <SubCategory>[],
+              <ItemsModel>[],
         );
         return JsonResponse.success(
-          message: 'SubCategory Fetches Successfully',
-          data: <SubCategory>[...data],
+          message: 'ItemsModel Fetches Successfully',
+          data: <ItemsModel>[...data],
         );
       } else {
         return JsonResponse.failure(
           statusCode: response.statusCode ?? 500,
-          message: 'Failed to Get SubCategory!',
+          message: 'Failed to Get ItemsModel!',
         );
       }
     } on DioException catch (e) {

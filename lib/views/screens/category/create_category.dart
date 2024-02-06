@@ -40,6 +40,13 @@ class _CreateCategoryPageState extends State<CreateCategoryPage> {
   }
 
   @override
+  void dispose() {
+    _nameController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -186,7 +193,7 @@ class _CreateCategoryPageState extends State<CreateCategoryPage> {
                           )
                         : ElevatedButton(
                             onPressed: () {
-                              final model = CreateCategoryModel(
+                              final model = CreateCategoryExtension(
                                 name: _nameController.text.trim(),
                                 description: _descriptionController.text.trim(),
                                 foodType: _foodType == FoodType.veg

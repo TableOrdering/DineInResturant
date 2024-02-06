@@ -16,7 +16,7 @@ class GetAllCategories extends CategoryEvent {
 
 class CreateCategory extends CategoryEvent {
   const CreateCategory({required this.model});
-  final CreateCategoryModel model;
+  final CreateCategoryExtension model;
 
   @override
   List<Object> get props => [model];

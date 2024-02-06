@@ -1,13 +1,13 @@
 import 'dart:typed_data';
 
-class CreateCategoryModel {
+class CreateCategoryExtension {
   String name;
   String description;
   String foodType;
   bool isAvailable;
   Uint8List image;
 
-  CreateCategoryModel({
+  CreateCategoryExtension({
     required this.name,
     required this.description,
     required this.foodType,

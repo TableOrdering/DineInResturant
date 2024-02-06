@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:dine_in/data/model/category/sub_category.dart';
+import 'package:dine_in/data/model/category/items.dart';
+import 'package:dine_in/data/model/extensions_models/create_product_extension.dart';
 import 'package:dine_in/data/repository/catrgory_repo/category_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -10,6 +11,7 @@ part 'items_state.dart';
 class ItemsBloc extends HydratedBloc<ItemsEvent, ItemsState> {
   ItemsBloc({required this.repository}) : super(const ItemsState()) {
     on<GetAllProducts>(_onGetAllSubCategories);
+    on<CreateProduct>(_onCreateProduct);
     on<UpdateProductStatus>(_onSubCategoryStatus);
     on<DeleteProduct>(_onDeleteProductStatus);
   }
@@ -21,7 +23,7 @@ class ItemsBloc extends HydratedBloc<ItemsEvent, ItemsState> {
     try {
       final response = await repository.getAllItems(state.page, state.limit);
       if (response.success) {
-        final data = response.data as List<SubCategory>;
+        final data = response.data as List<ItemsModel>;
         emit(
           state.copyWith(
             isLoading: false,
@@ -62,6 +64,27 @@ class ItemsBloc extends HydratedBloc<ItemsEvent, ItemsState> {
     emit(state.copyWith(isLoading: true, error: '', message: ''));
     try {
       final response = await repository.deleteProduct(event.id);
+      if (response.success) {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            message: response.message,
+          ),
+        );
+        add(const GetAllProducts());
+      } else {
+        emit(state.copyWith(isLoading: false, error: response.message));
+      }
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, error: e.toString()));
+    }
+  }
+
+  FutureOr<void> _onCreateProduct(
+      CreateProduct event, Emitter<ItemsState> emit) async {
+    emit(state.copyWith(isLoading: true, error: '', message: ''));
+    try {
+      final response = await repository.createProduct(event.model);
       if (response.success) {
         emit(
           state.copyWith(

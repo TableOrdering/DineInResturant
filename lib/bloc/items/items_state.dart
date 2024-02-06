@@ -2,7 +2,7 @@ part of 'items_bloc.dart';
 
 class ItemsState extends Equatable {
   const ItemsState({
-    this.subCategoryData = const <SubCategory>[],
+    this.subCategoryData = const <ItemsModel>[],
     this.isLoading = false,
     this.message = '',
     this.error = '',
@@ -11,7 +11,7 @@ class ItemsState extends Equatable {
     this.limit = 4000,
   });
 
-  final List<SubCategory> subCategoryData;
+  final List<ItemsModel> subCategoryData;
   final bool isLoading;
   final String message;
   final String error;
@@ -20,7 +20,7 @@ class ItemsState extends Equatable {
   final int limit;
 
   ItemsState copyWith({
-    List<SubCategory>? subCategoryData,
+    List<ItemsModel>? subCategoryData,
     bool? isLoading,
     String? message,
     String? error,
@@ -41,9 +41,9 @@ class ItemsState extends Equatable {
   /// fromJson and toJson are not necessary, but they can help in case you need to
 
   factory ItemsState.fromJson(Map<String, dynamic> json) => ItemsState(
-        subCategoryData: List<SubCategory>.from(
-          json["subCategoryData"]?.map((x) => SubCategory.fromJson(x)) ??
-              <SubCategory>[],
+        subCategoryData: List<ItemsModel>.from(
+          json["subCategoryData"]?.map((x) => ItemsModel.fromJson(x)) ??
+              <ItemsModel>[],
         ),
       );
 
