@@ -51,6 +51,10 @@ dependencies:
   fluttertoast: ^8.2.4
   flutter_tts: ^3.8.5
   qr_flutter: ^4.1.0
+  firebase_core: ^2.25.4
+  firebase_messaging: ^14.7.15
+  flutter_local_notifications: ^16.3.2
+  device_info_plus: ^9.1.2
   
 
 

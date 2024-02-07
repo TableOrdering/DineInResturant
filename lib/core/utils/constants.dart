@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 /// core constants
 const kAppName = 'Dine-In';
 const kUser = 'kUser';
+const kValidKey =
+    "fbxp0zMRwCylvPZbUgiueg:APA91bF2epJM6TVsuG-9Rry4vQPZQvlrtMY5s-bhnpyyDtxBoIc_bAiY3hoihF7SNk6T-pJLkQ9-buonttX_ZcDzRRHTB-evhUVGD4hZ_wTafXvR5ow61O_V6qXyNr8v-l1m1URrn_kq";
 
 /// theme constants
 const kFontFamily = 'Poppins';

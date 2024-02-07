@@ -5,6 +5,9 @@ import 'package:dine_in/core/utils/helpers.dart';
 import 'package:dine_in/data/model/json_response.dart';
 import 'package:dine_in/data/model/operator.dart';
 import 'package:dio/dio.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 
 /// [AuthService] is a class that handles all the authentication related
 /// operations.
@@ -40,7 +43,11 @@ class AuthService {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     };
-    dio.interceptors.add(LogInterceptor());
+    dio.interceptors.add(LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+      request: true,
+    ));
     dio.interceptors.add(XClientInterceptor());
   }
 
@@ -57,8 +64,41 @@ class AuthService {
     required String password,
   }) async {
     try {
-      final data = {'contact': phone, 'password': password};
+      final data = <String, dynamic>{'contact': phone, 'password': password};
+      if (!kIsWeb) {
+        final deviceToken = await FirebaseMessaging.instance.getToken();
+        if (deviceToken != null) {
+          data['deviceToken'] = deviceToken;
+        }
+      }
 
+      final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+      final info = await deviceInfoPlugin.deviceInfo;
+
+      if (info is AndroidDeviceInfo) {
+        data['deviceType'] = 'android';
+        data['deviceName'] = info.model;
+        data['deviceVersion'] = '${info.version.sdkInt}';
+        data['deviceManufacturer'] = info.manufacturer;
+        data['deviceBrand'] = info.brand;
+        data['deviceIsPhysical'] = '${info.isPhysicalDevice}';
+      } else if (info is IosDeviceInfo) {
+        data['deviceType'] = 'ios';
+        data['deviceName'] = info.model;
+        data['deviceVersion'] = info.systemVersion;
+        data['deviceManufacturer'] = info.utsname.machine;
+        data['deviceBrand'] = info.utsname.machine;
+        data['deviceIsPhysical'] = '${info.isPhysicalDevice}';
+      } else if (info is WebBrowserInfo) {
+        data['deviceType'] = 'web';
+        data['deviceName'] = info.userAgent ?? 'unknown';
+        data['deviceVersion'] = info.userAgent ?? 'unknown';
+        data['deviceManufacturer'] = 'unknown';
+        data['deviceBrand'] = 'unknown';
+        data['deviceIsPhysical'] = 'true';
+      }
+      print('Device Info: $info');
+      print('Request Data: $data');
       final response = await dio.post(
         loginPath,
         data: data,
@@ -91,6 +131,4 @@ class AuthService {
       );
     }
   }
-
-
 }
