@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:dine_in_resturant/core/debug/app_bloc_observer.dart';
+import 'package:dine_in_resturant/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -18,6 +19,26 @@ import 'package:path_provider/path_provider.dart';
 
 Future<void> startApplication(FutureOr<Widget> Function() builder) async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  final FirebaseMessaging messaging = FirebaseMessaging.instance;
+  // final token = await messaging.getToken();
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  // debugPrint('token: $token');
+
+  /// request permission
+  await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
 
   /// [FlutterError.onError] are used to handle errors.
   FlutterError.onError = (details) async {
@@ -44,15 +65,6 @@ Future<void> startApplication(FutureOr<Widget> Function() builder) async {
         : await getTemporaryDirectory(),
   );
 
-  /// if device is mobile then set orientation to portrait. and can't rotate and change orientation.
-  if (!kIsWeb &&
-      (defaultTargetPlatform == TargetPlatform.android ||
-          defaultTargetPlatform == TargetPlatform.iOS)) {
-    await SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight],
-    );
-  }
-
   /// user bloc observer to observe the state changes in the blocs and cubits
   Bloc.observer = AppBlocObserver();
 
@@ -77,8 +89,8 @@ Future<void> displayNotification(RemoteMessage message) async {
     AndroidNotificationDetails androidNotificationDetails;
 
     androidNotificationDetails = const AndroidNotificationDetails(
-      'com.example.dine_in',
-      'com.example.dine_in',
+      'com.dinIn.dine_in_resturant',
+      'com.dinIn.dine_in_resturant',
       channelDescription: 'Dine In Resturant Notification Channel Description',
       importance: Importance.max,
       priority: Priority.max,
@@ -109,15 +121,13 @@ Future<void> displayNotification(RemoteMessage message) async {
   }
 }
 
-// [_firebaseMessagingBackgroundHandler] is a top-level function that's
-/// called when the app is in the background or terminated.
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   try {
-//     await Firebase.initializeApp(
-//       options: DefaultFirebaseOptions.currentPlatform,
-//     );
-//     displayNotification(message);
-//   } on Exception catch (_) {
-//     throw Exception('Firebase Initialization Error Occured!');
-//   }
-// }
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    displayNotification(message);
+  } on Exception catch (_) {
+    throw Exception('Firebase Initialization Error Occured!');
+  }
+}

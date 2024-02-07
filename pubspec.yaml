@@ -51,6 +51,7 @@ dependencies:
   firebase_messaging: ^14.7.15
   flutter_local_notifications: ^16.3.2
   device_info_plus: ^9.1.2
+  animated_notch_bottom_bar: ^1.0.1
 
   flutter_iconsax:
     path: packages/flutter_iconsax

@@ -42,20 +42,20 @@ class Application extends StatelessWidget {
                       service: CategoryService(
                     dio: Dio(),
                   )),
-                )..add(const GetAllCategories())),
+                )),
         BlocProvider<ItemsBloc>(
             create: (context) => ItemsBloc(
                   repository: CategoryRepoImp(
                       service: CategoryService(
                     dio: Dio(),
                   )),
-                )..add(const GetAllProducts())),
+                )),
         BlocProvider(
           create: (context) => TablesBloc(
             repository: TablesRepoImp(
               service: TablesService(dio: Dio()),
             ),
-          )..add(const GetAllTables()),
+          ),
         ),
       ],
       child: const Middleware(),

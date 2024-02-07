@@ -18,6 +18,12 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends State<CategoryPage> {
   @override
+  void initState() {
+    context.read<CategoryBloc>().add(const GetAllCategories());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -61,12 +67,14 @@ class _CategoryPageState extends State<CategoryPage> {
               listener: (context, state) {
                 if (state.error.isNotEmpty) {
                   showToast(state.error);
+                } else if (state.message.isNotEmpty) {
+                  showToast(state.message);
                 }
               },
               builder: (context, state) {
                 final loading = state.isLoading;
                 final categoryData = state.categoriesData;
-                if (loading) {
+                if (loading && state.categoriesData.isEmpty) {
                   return SizedBox(
                     width: Utils.screenWidth(context),
                     height: Utils.screenHeight(context),
@@ -74,7 +82,7 @@ class _CategoryPageState extends State<CategoryPage> {
                       child: CircularProgressIndicator(),
                     ),
                   );
-                } else if (state.categoriesData.isEmpty) {
+                } else if (!loading && state.categoriesData.isEmpty) {
                   return SizedBox(
                     width: Utils.screenWidth(context),
                     height: Utils.screenHeight(context),
@@ -83,16 +91,10 @@ class _CategoryPageState extends State<CategoryPage> {
                     ),
                   );
                 } else if (state.categoriesData.isNotEmpty) {
-                  return GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 2.5,
-                    ),
+                  return ListView.builder(
                     itemCount: categoryData.length,
                     itemBuilder: (context, index) {
                       final data = categoryData[index];
-
                       return GestureDetector(
                         onTap: () {
                           showDialog(
@@ -101,7 +103,6 @@ class _CategoryPageState extends State<CategoryPage> {
                               builder: (context, setState) {
                                 return AlertDialog(
                                   content: SizedBox(
-                                    height: Utils.screenHeight(context) * 0.5,
                                     child: SingleChildScrollView(
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
@@ -110,15 +111,17 @@ class _CategoryPageState extends State<CategoryPage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                            child: SizedBox(
-                                              width: 250,
-                                              height: 200,
-                                              child: CustomeNetworkImage(
-                                                fill: true,
-                                                data: data.categoryImage ?? '',
+                                          Center(
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              child: SizedBox(
+                                                height: 140,
+                                                child: CustomeNetworkImage(
+                                                  fill: true,
+                                                  data:
+                                                      data.categoryImage ?? '',
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -180,135 +183,143 @@ class _CategoryPageState extends State<CategoryPage> {
                             ),
                           );
                         },
-                        child: Card(
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                width: Utils.screenWidth(context) * 0.11,
-                                height: 200,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: CustomeNetworkImage(
-                                    data: data.categoryImage ?? '',
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5.0, horizontal: 5),
+                          child: Card(
+                            child: Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 8),
+                                  height: Utils.screenWidth(context) * 0.35,
+                                  width: Utils.screenWidth(context) * 0.4,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: CustomeNetworkImage(
+                                      data: data.categoryImage ?? '',
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    "Name : ${data.name ?? ''}",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    "Food Type : ${data.foodType ?? ''}",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text.rich(
-                                    TextSpan(children: [
-                                      const TextSpan(
-                                        text: "Availability : ",
-                                        style: TextStyle(
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 10),
+                                    SizedBox(
+                                      width: Utils.screenWidth(context) * 0.4,
+                                      child: Text(
+                                        "Name : ${data.name ?? ''}",
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 12,
                                         ),
                                       ),
-                                      TextSpan(
-                                        text:
-                                            " ${data.isAvailable ?? false ? "Available" : "Not Available"}",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 12,
-                                          color: data.isAvailable ?? false
-                                              ? Colors.green
-                                              : Colors.red,
-                                        ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      "Food Type : ${data.foodType ?? ''}",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
                                       ),
-                                    ]),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {},
-                                        child: Container(
-                                          width: 30,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            color: CustomColors.primary,
-                                          ),
-                                          child: const Icon(
-                                            Iconsax.edit4,
-                                            color: Colors.white,
-                                            size: 16,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text.rich(
+                                      TextSpan(children: [
+                                        const TextSpan(
+                                          text: "Availability : ",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 12,
                                           ),
                                         ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      InkWell(
-                                        onTap: () {
-                                          context
-                                              .read<CategoryBloc>()
-                                              .add(DeleteCategory(
-                                                id: data.id ?? '',
-                                              ));
-                                        },
-                                        child: Container(
-                                          width: 30,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            color: CustomColors.primary,
-                                          ),
-                                          child: const Icon(
-                                            Icons.delete_outline_rounded,
-                                            color: Colors.white,
-                                            size: 16,
+                                        TextSpan(
+                                          text:
+                                              " ${data.isAvailable ?? false ? "Available" : "Not Available"}",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 12,
+                                            color: data.isAvailable ?? false
+                                                ? Colors.green
+                                                : Colors.red,
                                           ),
                                         ),
-                                      ),
-                                      const SizedBox(width: 8),
+                                      ]),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Container(
+                                            width: 30,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color: CustomColors.primary,
+                                            ),
+                                            child: const Icon(
+                                              Iconsax.edit4,
+                                              color: Colors.white,
+                                              size: 16,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        InkWell(
+                                          onTap: () {
+                                            context
+                                                .read<CategoryBloc>()
+                                                .add(DeleteCategory(
+                                                  id: data.id ?? '',
+                                                ));
+                                          },
+                                          child: Container(
+                                            width: 30,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color: CustomColors.primary,
+                                            ),
+                                            child: const Icon(
+                                              Icons.delete_outline_rounded,
+                                              color: Colors.white,
+                                              size: 16,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
 
-                                      /// Update The Status Of the Category
-                                      InkWell(
-                                        onTap: () {
-                                          context.read<CategoryBloc>().add(
-                                              CategoryStatus(
-                                                  id: data.id ?? ''));
-                                        },
-                                        child: Container(
-                                          width: 30,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            color: CustomColors.primary,
-                                          ),
-                                          child: const Icon(
-                                            Icons.event_available,
-                                            color: Colors.white,
-                                            size: 16,
+                                        /// Update The Status Of the Category
+                                        InkWell(
+                                          onTap: () {
+                                            context.read<CategoryBloc>().add(
+                                                CategoryStatus(
+                                                    id: data.id ?? ''));
+                                          },
+                                          child: Container(
+                                            width: 30,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color: CustomColors.primary,
+                                            ),
+                                            child: const Icon(
+                                              Icons.event_available,
+                                              color: Colors.white,
+                                              size: 16,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              )
-                            ],
+                                      ],
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       );

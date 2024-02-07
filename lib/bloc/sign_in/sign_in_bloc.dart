@@ -56,6 +56,7 @@ class SignInBloc extends HydratedBloc<SignInEvent, SignInState> {
       LogOutEvent event, Emitter<SignInState> emit) async {
     await HydratedBloc.storage.clear();
     authenticationBloc.add(AuthenticationUnAuthenticated());
+    
   }
 
   @override

@@ -54,7 +54,7 @@ class _CustomCreatingTableDialogueState
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           content: SizedBox(
-            width: Utils.screenWidth(context) * 0.5,
+            width: Utils.screenWidth(context),
             height: Utils.screenHeight(context) * 0.4,
             child: Form(
               key: widget._formKey,
@@ -171,7 +171,7 @@ class _CustomCreatingTableDialogueState
                 ),
                 const SizedBox(width: 16),
                 SizedBox(
-                  width: 130,
+                  width: 110,
                   height: 40,
                   child: ElevatedButton(
                     onPressed: () {

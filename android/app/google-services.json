@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "218149286986",
+    "project_id": "dinein-d3df1",
+    "storage_bucket": "dinein-d3df1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218149286986:android:5ae2f44281ccbd834862b3",
+        "android_client_info": {
+          "package_name": "com.dinIn.dine_in_resturant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXC6zEIMhK5f1BzWuC6HMUoRz1QdXi3Vk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

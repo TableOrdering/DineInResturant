@@ -96,14 +96,7 @@ class TablesPageState extends State<TablesPage> {
                     ),
                   );
                 } else if (tablesData.isNotEmpty) {
-                  return GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 335,
-                      mainAxisExtent: 150,
-                      mainAxisSpacing: 8.0,
-                      crossAxisSpacing: 8.0,
-                    ),
+                  return ListView.builder(
                     itemCount: tablesData.length,
                     itemBuilder: (context, index) {
                       final data = tablesData[index];
@@ -118,7 +111,8 @@ class TablesPageState extends State<TablesPage> {
                           );
                         },
                         child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
                           padding: const EdgeInsets.all(16),
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(16)),

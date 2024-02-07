@@ -3,7 +3,7 @@ import 'package:dine_in_resturant/core/routes/routes.dart';
 import 'package:dine_in_resturant/views/screens/auth/auth_page.dart';
 import 'package:dine_in_resturant/views/screens/category/create_category.dart';
 import 'package:dine_in_resturant/views/screens/items/create_items.dart';
-import 'package:dine_in_resturant/views/widgets/navigation.dart';
+import 'package:dine_in_resturant/views/widgets/bottom_navigation.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
@@ -27,7 +27,7 @@ class AppRouter {
           path: kHomeRoute,
           name: kHomeRoute,
           // builder: (context, state) => const CreateItemsPage(),
-          builder: (context, state) => const Navigation(),
+          builder: (context, state) => const BottomNavigationPage(),
           routes: [
             GoRoute(
               path: kCreateCategoryRoute,

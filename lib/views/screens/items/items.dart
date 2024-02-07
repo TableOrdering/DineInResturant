@@ -89,137 +89,239 @@ class _ItemsPageState extends State<ItemsPage> {
                     ),
                   );
                 } else if (state.subCategoryData.isNotEmpty) {
-                  return GridView.builder(
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: Utils.screenWidth(context) * 0.31,
-                      mainAxisExtent: 150,
-                      mainAxisSpacing: 8.0,
-                      crossAxisSpacing: 8.0,
-                    ),
+                  return ListView.builder(
                     itemCount: subCategoryData.length,
                     itemBuilder: (context, index) {
                       final data = subCategoryData[index];
-                      return Card(
-                          child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            width: Utils.screenWidth(context) * 0.12,
-                            height: 200,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: CustomeNetworkImage(
-                                data: data.productImage ?? '',
-                              ),
+                      return GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => StatefulBuilder(
+                              builder: (context, setState) {
+                                return AlertDialog(
+                                  content: SizedBox(
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Center(
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              child: SizedBox(
+                                                height: 140,
+                                                child: CustomeNetworkImage(
+                                                  fill: true,
+                                                  data: data.productImage ?? '',
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            "Name : ${data.name ?? ''}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            "Description : ${data.description ?? ''}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text.rich(
+                                            TextSpan(children: [
+                                              const TextSpan(
+                                                text: "Availability : ",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text:
+                                                    " ${data.isAvailable ?? false ? "Available" : "Not Available"}",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 12,
+                                                  color:
+                                                      data.isAvailable ?? false
+                                                          ? Colors.green
+                                                          : Colors.red,
+                                                ),
+                                              ),
+                                            ]),
+                                          ),
+                                          const SizedBox(height: 8),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Card(
+                              child: Row(
                             children: [
-                              const SizedBox(height: 10),
-                              SizedBox(
-                                width: Utils.screenWidth(context) * 0.13,
-                                child: Text(
-                                  "Name : ${data.name ?? ''}",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12,
+                              Container(
+                                margin: const EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 16),
+                                height: Utils.screenWidth(context) * 0.35,
+                                width: Utils.screenWidth(context) * 0.4,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: CustomeNetworkImage(
+                                    data: data.productImage ?? '',
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 8),
-                              Text.rich(
-                                TextSpan(children: [
-                                  const TextSpan(
-                                    text: "Availability : ",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        " ${data.isAvailable ?? false ? "Available" : "Not Available"}",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                      color: data.isAvailable ?? false
-                                          ? Colors.green
-                                          : Colors.red,
-                                    ),
-                                  ),
-                                ]),
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  InkWell(
-                                    onTap: () {},
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: CustomColors.primary,
-                                      ),
-                                      child: const Icon(
-                                        Iconsax.edit4,
-                                        color: Colors.white,
-                                        size: 16,
+                                  const SizedBox(height: 10),
+                                  SizedBox(
+                                    width: Utils.screenWidth(context) * 0.4,
+                                    child: Text(
+                                      "Name : ${data.name ?? ''}",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 8),
-                                  InkWell(
-                                    onTap: () {
-                                      context.read<ItemsBloc>().add(
-                                          DeleteProduct(id: data.id ?? ''));
-                                    },
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: CustomColors.primary,
-                                      ),
-                                      child: const Icon(
-                                        Icons.delete_outline_rounded,
-                                        color: Colors.white,
-                                        size: 16,
+                                  SizedBox(
+                                    child: Text(
+                                      "Price : ${data.price ?? ''}",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 8),
+                                  SizedBox(
+                                    child: Text(
+                                      "Discount : ${data.discount ?? ''}",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
+                                  Text.rich(
+                                    TextSpan(children: [
+                                      const TextSpan(
+                                        text: "Availability : ",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            " ${data.isAvailable ?? false ? "Available" : "Not Available"}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12,
+                                          color: data.isAvailable ?? false
+                                              ? Colors.green
+                                              : Colors.red,
+                                        ),
+                                      ),
+                                    ]),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Container(
+                                          width: 30,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: CustomColors.primary,
+                                          ),
+                                          child: const Icon(
+                                            Iconsax.edit4,
+                                            color: Colors.white,
+                                            size: 16,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      InkWell(
+                                        onTap: () {
+                                          context.read<ItemsBloc>().add(
+                                              DeleteProduct(id: data.id ?? ''));
+                                        },
+                                        child: Container(
+                                          width: 30,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: CustomColors.primary,
+                                          ),
+                                          child: const Icon(
+                                            Icons.delete_outline_rounded,
+                                            color: Colors.white,
+                                            size: 16,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
 
-                                  /// Update The Status Of the Category
-                                  InkWell(
-                                    onTap: () {
-                                      context.read<ItemsBloc>().add(
-                                          UpdateProductStatus(
-                                              id: data.id ?? ''));
-                                    },
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: CustomColors.primary,
+                                      /// Update The Status Of the Category
+                                      InkWell(
+                                        onTap: () {
+                                          context.read<ItemsBloc>().add(
+                                              UpdateProductStatus(
+                                                  id: data.id ?? ''));
+                                        },
+                                        child: Container(
+                                          width: 30,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: CustomColors.primary,
+                                          ),
+                                          child: const Icon(
+                                            Icons.event_available,
+                                            color: Colors.white,
+                                            size: 16,
+                                          ),
+                                        ),
                                       ),
-                                      child: const Icon(
-                                        Icons.event_available,
-                                        color: Colors.white,
-                                        size: 16,
-                                      ),
-                                    ),
-                                  ),
+                                    ],
+                                  )
                                 ],
                               )
                             ],
-                          )
-                        ],
-                      ));
+                          )),
+                        ),
+                      );
                     },
                   );
                 }

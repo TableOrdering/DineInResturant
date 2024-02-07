@@ -45,8 +45,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 200,
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
-                      child:
-                          CustomeNetworkImage(data: data.resturantImage ?? '')),
+                      child: CustomeNetworkImage(
+                
+                        data: data.resturantImage ?? '',
+                      )),
                 ),
                 Text("Name : ${data.name ?? ''}"),
                 Text("Description : ${data.description ?? ''}"),
