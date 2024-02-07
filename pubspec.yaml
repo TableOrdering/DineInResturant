@@ -51,6 +51,7 @@ dependencies:
   fluttertoast: ^8.2.4
   flutter_tts: ^3.8.5
   qr_flutter: ^4.1.0
+  
 
 
 dev_dependencies:
@@ -63,6 +64,15 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.1
+  flutter_native_splash: ^2.3.10
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: true
+  color: "#FFFFFF"
+  image: "assets/splash_logo.png"
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
