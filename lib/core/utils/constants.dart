@@ -1,4 +1,4 @@
-import 'package:dine_in/core/env/environment.dart';
+import 'package:dine_in_resturant/core/env/environment.dart';
 import 'package:flutter/material.dart';
 
 /// core constants

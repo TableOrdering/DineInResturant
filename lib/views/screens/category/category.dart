@@ -1,9 +1,9 @@
-import 'package:dine_in/bloc/category/category_bloc.dart';
-import 'package:dine_in/core/routes/routes.dart';
-import 'package:dine_in/core/utils/k_color_scheme.dart';
-import 'package:dine_in/core/utils/responsive.dart';
-import 'package:dine_in/core/utils/toast.dart';
-import 'package:dine_in/views/widgets/custome_widgets.dart';
+import 'package:dine_in_resturant/bloc/category/category_bloc.dart';
+import 'package:dine_in_resturant/core/routes/routes.dart';
+import 'package:dine_in_resturant/core/utils/k_color_scheme.dart';
+import 'package:dine_in_resturant/core/utils/responsive.dart';
+import 'package:dine_in_resturant/core/utils/toast.dart';
+import 'package:dine_in_resturant/views/widgets/custome_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconsax/flutter_iconsax.dart';

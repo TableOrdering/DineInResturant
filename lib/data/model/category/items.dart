@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:dine_in/data/model/category/category.dart';
+import 'package:dine_in_resturant/data/model/category/category.dart';
+
 
 class ItemsModel {
   final String? id;

@@ -1,6 +1,6 @@
 
-import 'package:dine_in/data/model/json_response.dart';
-import 'package:dine_in/data/services/auth_service.dart';
+import 'package:dine_in_resturant/data/model/json_response.dart';
+import 'package:dine_in_resturant/data/services/auth_service.dart';
 
 /// [AuthRepository] is an abstract class that defines the methods that will be
 /// implemented by the [AuthRepositoryImpl] class.

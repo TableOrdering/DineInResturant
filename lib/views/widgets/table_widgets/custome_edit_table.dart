@@ -1,8 +1,8 @@
-import 'package:dine_in/bloc/tables/tables_bloc.dart';
-import 'package:dine_in/core/utils/k_color_scheme.dart';
-import 'package:dine_in/core/utils/responsive.dart';
-import 'package:dine_in/core/utils/toast.dart';
-import 'package:dine_in/data/model/tables/tables.dart';
+import 'package:dine_in_resturant/bloc/tables/tables_bloc.dart';
+import 'package:dine_in_resturant/core/utils/k_color_scheme.dart';
+import 'package:dine_in_resturant/core/utils/responsive.dart';
+import 'package:dine_in_resturant/core/utils/toast.dart';
+import 'package:dine_in_resturant/data/model/tables/tables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

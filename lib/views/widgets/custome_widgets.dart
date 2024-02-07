@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dine_in/core/utils/responsive.dart';
+import 'package:dine_in_resturant/core/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconsax/flutter_iconsax.dart';
 

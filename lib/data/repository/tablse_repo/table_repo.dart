@@ -1,6 +1,6 @@
-import 'package:dine_in/data/model/json_response.dart';
-import 'package:dine_in/data/model/tables/tables.dart';
-import 'package:dine_in/data/services/tables/tables_service.dart';
+import 'package:dine_in_resturant/data/model/json_response.dart';
+import 'package:dine_in_resturant/data/model/tables/tables.dart';
+import 'package:dine_in_resturant/data/services/tables/tables_service.dart';
 
 abstract class TablesRepo {
   Future<JsonResponse> getAllTables();

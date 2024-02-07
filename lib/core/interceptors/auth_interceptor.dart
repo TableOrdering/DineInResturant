@@ -1,4 +1,4 @@
-import 'package:dine_in/core/utils/constants.dart';
+import 'package:dine_in_resturant/core/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 

@@ -1,4 +1,4 @@
-import 'package:dine_in/core/env/environment.dart';
+import 'package:dine_in_resturant/core/env/environment.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart'
     show kIsWeb, defaultTargetPlatform, TargetPlatform;

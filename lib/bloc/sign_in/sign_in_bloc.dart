@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:dine_in/bloc/auth/authentication_bloc.dart';
-import 'package:dine_in/core/utils/constants.dart';
-import 'package:dine_in/data/model/operator.dart';
-import 'package:dine_in/data/repository/auth_repository.dart';
+import 'package:dine_in_resturant/bloc/auth/authentication_bloc.dart';
+import 'package:dine_in_resturant/core/utils/constants.dart';
+import 'package:dine_in_resturant/data/model/operator.dart';
+import 'package:dine_in_resturant/data/repository/auth_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 

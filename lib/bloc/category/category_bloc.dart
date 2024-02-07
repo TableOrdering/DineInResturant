@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:dine_in/data/model/category/category.dart';
-import 'package:dine_in/data/model/extensions_models/create_category_extension.dart';
-import 'package:dine_in/data/repository/catrgory_repo/category_repo.dart';
+import 'package:dine_in_resturant/data/model/category/category.dart';
+import 'package:dine_in_resturant/data/model/extensions_models/create_category_extension.dart';
+import 'package:dine_in_resturant/data/repository/catrgory_repo/category_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 

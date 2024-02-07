@@ -1,4 +1,4 @@
-# dine_in
+# dine_in_resturant
 
 A new Flutter project.
 

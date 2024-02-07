@@ -1,4 +1,4 @@
-name: dine_in
+name: dine_in_resturant
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -43,10 +43,6 @@ dependencies:
   equatable: ^2.0.5
   cached_network_image: ^3.3.1
   image_picker: ^1.0.7
-  
-
-  flutter_iconsax:
-    path: packages/flutter_iconsax
   intl: ^0.19.0
   fluttertoast: ^8.2.4
   flutter_tts: ^3.8.5
@@ -55,8 +51,9 @@ dependencies:
   firebase_messaging: ^14.7.15
   flutter_local_notifications: ^16.3.2
   device_info_plus: ^9.1.2
-  
 
+  flutter_iconsax:
+    path: packages/flutter_iconsax
 
 dev_dependencies:
   flutter_test:
@@ -67,7 +64,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.1
+  flutter_lints: ^2.0.0
   flutter_native_splash: ^2.3.10
 
 flutter_native_splash:
@@ -76,7 +73,6 @@ flutter_native_splash:
   web: true
   color: "#FFFFFF"
   image: "assets/splash_logo.png"
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

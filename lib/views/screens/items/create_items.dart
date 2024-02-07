@@ -1,12 +1,11 @@
-import 'dart:typed_data';
 
-import 'package:dine_in/bloc/category/category_bloc.dart';
-import 'package:dine_in/bloc/items/items_bloc.dart';
-import 'package:dine_in/core/utils/responsive.dart';
-import 'package:dine_in/core/utils/toast.dart';
-import 'package:dine_in/data/model/category/category.dart';
-import 'package:dine_in/data/model/extensions_models/create_product_extension.dart';
-import 'package:dine_in/views/screens/category/create_category.dart';
+import 'package:dine_in_resturant/bloc/category/category_bloc.dart';
+import 'package:dine_in_resturant/bloc/items/items_bloc.dart';
+import 'package:dine_in_resturant/core/utils/responsive.dart';
+import 'package:dine_in_resturant/core/utils/toast.dart';
+import 'package:dine_in_resturant/data/model/category/category.dart';
+import 'package:dine_in_resturant/data/model/extensions_models/create_product_extension.dart';
+import 'package:dine_in_resturant/views/screens/category/create_category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

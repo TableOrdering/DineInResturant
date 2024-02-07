@@ -1,5 +1,5 @@
-import 'package:dine_in/bloc/sign_in/sign_in_bloc.dart';
-import 'package:dine_in/views/widgets/custome_widgets.dart';
+import 'package:dine_in_resturant/bloc/sign_in/sign_in_bloc.dart';
+import 'package:dine_in_resturant/views/widgets/custome_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconsax/flutter_iconsax.dart';

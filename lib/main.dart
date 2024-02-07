@@ -1,6 +1,5 @@
 
-
-import 'package:dine_in/app/start.dart';
+import 'package:dine_in_resturant/app/start.dart';
 
 import 'app/app.dart';
 

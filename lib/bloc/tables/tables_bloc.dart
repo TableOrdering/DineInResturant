@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:dine_in/data/model/tables/tables.dart';
-import 'package:dine_in/data/repository/tablse_repo/table_repo.dart';
+import 'package:dine_in_resturant/data/model/tables/tables.dart';
+import 'package:dine_in_resturant/data/repository/tablse_repo/table_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 

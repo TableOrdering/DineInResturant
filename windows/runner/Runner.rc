@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "dine_in" "\0"
+            VALUE "CompanyName", "com.dinIn" "\0"
+            VALUE "FileDescription", "dine_in_resturant" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "dine_in" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "dine_in.exe" "\0"
-            VALUE "ProductName", "dine_in" "\0"
+            VALUE "InternalName", "dine_in_resturant" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.dinIn. All rights reserved." "\0"
+            VALUE "OriginalFilename", "dine_in_resturant.exe" "\0"
+            VALUE "ProductName", "dine_in_resturant" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

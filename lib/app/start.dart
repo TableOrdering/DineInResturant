@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:dine_in/core/debug/app_bloc_observer.dart';
+import 'package:dine_in_resturant/core/debug/app_bloc_observer.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +18,6 @@ import 'package:path_provider/path_provider.dart';
 
 Future<void> startApplication(FutureOr<Widget> Function() builder) async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  if (!kIsWeb &&
-      (defaultTargetPlatform == TargetPlatform.android ||
-          defaultTargetPlatform == TargetPlatform.iOS)) {
-    await SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight],
-    );
-  }
 
   /// [FlutterError.onError] are used to handle errors.
   FlutterError.onError = (details) async {

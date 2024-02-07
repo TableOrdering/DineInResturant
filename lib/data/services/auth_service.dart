@@ -1,9 +1,9 @@
 import 'dart:developer';
-import 'package:dine_in/core/interceptors/x_client_interceptor.dart';
-import 'package:dine_in/core/utils/constants.dart';
-import 'package:dine_in/core/utils/helpers.dart';
-import 'package:dine_in/data/model/json_response.dart';
-import 'package:dine_in/data/model/operator.dart';
+import 'package:dine_in_resturant/core/interceptors/x_client_interceptor.dart';
+import 'package:dine_in_resturant/core/utils/constants.dart';
+import 'package:dine_in_resturant/core/utils/helpers.dart';
+import 'package:dine_in_resturant/data/model/json_response.dart';
+import 'package:dine_in_resturant/data/model/operator.dart';
 import 'package:dio/dio.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -97,8 +97,6 @@ class AuthService {
         data['deviceBrand'] = 'unknown';
         data['deviceIsPhysical'] = 'true';
       }
-      print('Device Info: $info');
-      print('Request Data: $data');
       final response = await dio.post(
         loginPath,
         data: data,

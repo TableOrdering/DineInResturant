@@ -1,9 +1,9 @@
-import 'package:dine_in/bloc/auth/authentication_bloc.dart';
-import 'package:dine_in/core/routes/routes.dart';
-import 'package:dine_in/views/screens/auth/auth_page.dart';
-import 'package:dine_in/views/screens/category/create_category.dart';
-import 'package:dine_in/views/screens/items/create_items.dart';
-import 'package:dine_in/views/widgets/navigation.dart';
+import 'package:dine_in_resturant/bloc/auth/authentication_bloc.dart';
+import 'package:dine_in_resturant/core/routes/routes.dart';
+import 'package:dine_in_resturant/views/screens/auth/auth_page.dart';
+import 'package:dine_in_resturant/views/screens/category/create_category.dart';
+import 'package:dine_in_resturant/views/screens/items/create_items.dart';
+import 'package:dine_in_resturant/views/widgets/navigation.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {

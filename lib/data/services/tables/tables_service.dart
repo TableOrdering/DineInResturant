@@ -1,8 +1,8 @@
-import 'package:dine_in/core/interceptors/auth_interceptor.dart';
-import 'package:dine_in/core/utils/constants.dart';
-import 'package:dine_in/core/utils/helpers.dart';
-import 'package:dine_in/data/model/json_response.dart';
-import 'package:dine_in/data/model/tables/tables.dart';
+import 'package:dine_in_resturant/core/interceptors/auth_interceptor.dart';
+import 'package:dine_in_resturant/core/utils/constants.dart';
+import 'package:dine_in_resturant/core/utils/helpers.dart';
+import 'package:dine_in_resturant/data/model/json_response.dart';
+import 'package:dine_in_resturant/data/model/tables/tables.dart';
 import 'package:dio/dio.dart';
 
 /// [TablesService] is a class that handles all the authentication related

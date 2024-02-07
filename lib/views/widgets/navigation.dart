@@ -1,10 +1,10 @@
-import 'package:dine_in/core/utils/k_color_scheme.dart';
-import 'package:dine_in/core/utils/responsive.dart';
-import 'package:dine_in/views/screens/category/category.dart';
-import 'package:dine_in/views/screens/dashboard.dart';
-import 'package:dine_in/views/screens/items/items.dart';
-import 'package:dine_in/views/screens/profile/profile.dart';
-import 'package:dine_in/views/screens/table/tables.dart';
+import 'package:dine_in_resturant/core/utils/k_color_scheme.dart';
+import 'package:dine_in_resturant/core/utils/responsive.dart';
+import 'package:dine_in_resturant/views/screens/category/category.dart';
+import 'package:dine_in_resturant/views/screens/dashboard.dart';
+import 'package:dine_in_resturant/views/screens/items/items.dart';
+import 'package:dine_in_resturant/views/screens/profile/profile.dart';
+import 'package:dine_in_resturant/views/screens/table/tables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconsax/flutter_iconsax.dart';
 

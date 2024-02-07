@@ -1,11 +1,11 @@
-import 'package:dine_in/core/interceptors/auth_interceptor.dart';
-import 'package:dine_in/core/utils/constants.dart';
-import 'package:dine_in/core/utils/helpers.dart';
-import 'package:dine_in/data/model/category/category.dart';
-import 'package:dine_in/data/model/category/items.dart';
-import 'package:dine_in/data/model/extensions_models/create_category_extension.dart';
-import 'package:dine_in/data/model/extensions_models/create_product_extension.dart';
-import 'package:dine_in/data/model/json_response.dart';
+import 'package:dine_in_resturant/core/interceptors/auth_interceptor.dart';
+import 'package:dine_in_resturant/core/utils/constants.dart';
+import 'package:dine_in_resturant/core/utils/helpers.dart';
+import 'package:dine_in_resturant/data/model/category/category.dart';
+import 'package:dine_in_resturant/data/model/category/items.dart';
+import 'package:dine_in_resturant/data/model/extensions_models/create_category_extension.dart';
+import 'package:dine_in_resturant/data/model/extensions_models/create_product_extension.dart';
+import 'package:dine_in_resturant/data/model/json_response.dart';
 import 'package:dio/dio.dart';
 
 /// [CategoryService] is a class that handles all the authentication related

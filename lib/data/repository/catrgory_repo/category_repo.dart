@@ -1,7 +1,8 @@
-import 'package:dine_in/data/model/extensions_models/create_category_extension.dart';
-import 'package:dine_in/data/model/extensions_models/create_product_extension.dart';
-import 'package:dine_in/data/model/json_response.dart';
-import 'package:dine_in/data/services/category/category_service.dart';
+
+import 'package:dine_in_resturant/data/model/extensions_models/create_category_extension.dart';
+import 'package:dine_in_resturant/data/model/extensions_models/create_product_extension.dart';
+import 'package:dine_in_resturant/data/model/json_response.dart';
+import 'package:dine_in_resturant/data/services/category/category_service.dart';
 
 abstract class CategoryRepository {
   Future<JsonResponse> getAllCategories(int page, int limit);
