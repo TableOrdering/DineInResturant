@@ -155,8 +155,8 @@ class CategoryService {
         'description': model.description,
         'foodType': model.foodType,
         'isAvailable': model.isAvailable,
-        'categoryImage': MultipartFile.fromBytes(
-          model.image,
+        'categoryImage': MultipartFile.fromFileSync(
+          model.image.path,
           filename: 'categoryImage.jpg',
         ),
       });
@@ -199,8 +199,8 @@ class CategoryService {
         'isAvailable': model.isAvailable,
         'discount': model.discount,
         'category': model.category,
-        'productImage': MultipartFile.fromBytes(
-          model.productImage!,
+        'productImage': MultipartFile.fromFileSync(
+          model.productImage!.path,
           filename: 'productImage.jpg',
         ),
       });

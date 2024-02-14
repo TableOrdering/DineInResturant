@@ -1,4 +1,5 @@
-import 'dart:typed_data';
+
+import 'dart:io';
 
 class CreateItemExtension {
   String? name;
@@ -8,7 +9,7 @@ class CreateItemExtension {
   int? rating;
   String? category;
   bool? isAvailable;
-  Uint8List? productImage;
+  File? productImage;
 
   CreateItemExtension({
     this.name,

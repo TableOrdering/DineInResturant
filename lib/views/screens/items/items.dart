@@ -122,17 +122,41 @@ class _ItemsPageState extends State<ItemsPage> {
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(height: 10),
+                                          const SizedBox(height: 8),
                                           Text(
-                                            "Name : ${data.name ?? ''}",
+                                            "Category : ${data.category?.name ?? ''}",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 12,
                                             ),
                                           ),
-                                          const SizedBox(height: 10),
+                                          const SizedBox(height: 8),
                                           Text(
-                                            "Description : ${data.description ?? ''}",
+                                            "Category Description : ${data.category?.description ?? ''}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            "Food Type : ${data.category?.foodType ?? ''}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            "Item Name : ${data.name ?? ''}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            "Item Description : ${data.description ?? ''}",
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 12,
@@ -142,7 +166,7 @@ class _ItemsPageState extends State<ItemsPage> {
                                           Text.rich(
                                             TextSpan(children: [
                                               const TextSpan(
-                                                text: "Availability : ",
+                                                text: "Item Availability : ",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 12,
@@ -192,11 +216,22 @@ class _ItemsPageState extends State<ItemsPage> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(height: 10),
                                   SizedBox(
                                     width: Utils.screenWidth(context) * 0.4,
                                     child: Text(
                                       "Name : ${data.name ?? ''}",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: Utils.screenWidth(context) * 0.4,
+                                    child: Text(
+                                      "Category : ${data.category?.name ?? ''}",
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(

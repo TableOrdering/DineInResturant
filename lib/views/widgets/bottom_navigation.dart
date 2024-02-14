@@ -67,7 +67,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
             ),
             activeItem: Icon(
               Icons.home_filled,
-              color: Colors.blueAccent,
+              color: Colors.white,
             ),
             itemLabel: 'DashBoard',
           ),
@@ -111,7 +111,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
             ),
             activeItem: Icon(
               Icons.person,
-              color: Colors.yellow,
+              color: Colors.white,
             ),
             itemLabel: 'Profile',
           ),

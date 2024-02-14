@@ -1,11 +1,11 @@
-import 'dart:typed_data';
+import 'dart:io';
 
 class CreateCategoryExtension {
   String name;
   String description;
   String foodType;
   bool isAvailable;
-  Uint8List image;
+  File image;
 
   CreateCategoryExtension({
     required this.name,
