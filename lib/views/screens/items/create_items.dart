@@ -67,7 +67,7 @@ class _CreateItemsPageState extends State<CreateItemsPage> {
           IOSUiSettings(title: 'Crop'),
           WebUiSettings(
             context: context,
-            presentStyle: CropperPresentStyle.dialog,
+            presentStyle: CropperPresentStyle.page,
             boundary: const CroppieBoundary(
               width: 400,
               height: 400,
